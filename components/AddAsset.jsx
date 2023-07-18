@@ -1,8 +1,22 @@
 'use client'
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
-import { useForm } from '@mantine/form';
+
+import { useState } from "react";
+
+
+
 
 function AddAsset() {
+
+const [formData, setFormData] = useState({
+  assetName: '',
+  model:'',
+  tag: '',
+  serialNumber: '',
+  category:'',
+  status: '',
+  purchase_price: '',
+  forDisposal:''
+})
 
 
   return (
@@ -13,7 +27,7 @@ function AddAsset() {
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
                 <label className="text-white dark:text-gray-200" for="assetName">Asset Name</label>
-                <input id="username" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+                <input id="username" type="text" value={formData.assetName} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
             </div>
 
             <div>
