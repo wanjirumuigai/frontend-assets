@@ -1,0 +1,128 @@
+{
+  "assets": [
+    {
+      "id": 1,
+      "assetName": "Desktop Computer",
+      "assetTag": "IT5637",
+      "serialNumber": "ABC123",
+      "purchasePrice": "100000",
+      "category": "Desktops",
+      "model": "Dell Vostro",
+      "acquisition_date": "2023-01-01",
+      "status": "in_use"
+    },
+    {
+      "assetName": "Asus",
+      "assetTag": "IT678",
+      "serialNumber": "ytu3771",
+      "model": "Asus Zenbook",
+      "category": "laptops",
+      "status": "deployed",
+      "purchasePrice": "120000",
+      "id": 2
+    },
+    {
+      "assetName": "HP LAPTOP",
+      "assetTag": "ITHP091",
+      "serialNumber": "YDHDBVS3",
+      "model": "HP",
+      "category": "laptops",
+      "status": "obsolete",
+      "purchasePrice": "45000",
+      "id": 3
+    },
+    {
+      "assetName": "HP LAPTOP",
+      "assetTag": "ITHP091",
+      "serialNumber": "YDHDBVS2",
+      "model": "HP",
+      "category": "laptops",
+      "status": "obsolete",
+      "purchasePrice": "45000",
+      "id": 4
+    },
+    {
+      "assetName": "HP LAPTOP",
+      "assetTag": "ITHP091",
+      "serialNumber": "YDHDBVS1",
+      "model": "HP",
+      "category": "laptops",
+      "status": "obsolete",
+      "purchasePrice": "45000",
+      "id": 5
+    },
+    {
+      "formData": {
+        "assetName": "Laptop",
+        "model": "Hp Spectre",
+        "tag": "hgudkjmd",
+        "serialNumber": "67389",
+        "category": "Laptops",
+        "status": "Ready to Deploy",
+        "purchasePrice": "100000"
+      },
+      "id": 6
+    },
+    {
+      "formData": {
+        "assetName": "Laptop",
+        "model": "Hp Spectre",
+        "tag": "hgudkjmd",
+        "serialNumber": "67389",
+        "category": "Laptops",
+        "status": "Ready to Deploy",
+        "purchasePrice": "100000"
+      },
+      "id": 7
+    },
+    {
+      "formData": {
+        "assetName": "Laptop",
+        "model": "Hp Spectre",
+        "tag": "hgudkjmd",
+        "serialNumber": "67389",
+        "category": "Laptops",
+        "status": "Ready to Deploy",
+        "purchasePrice": "100000"
+      },
+      "id": 8
+    },
+    {
+      "formData": {
+        "purchasePrice": "100000"
+      },
+      "id": 9
+    },
+    {
+      "formData": {
+        "purchasePrice": "100000"
+      },
+      "id": 10
+    },
+    {
+      "formData": {
+        "assetName": "Projector",
+        "model": "epson",
+        "tag": "26273",
+        "serialNumber": "97654",
+        "category": "Audio/Visual",
+        "status": "Obsolete",
+        "purchasePrice": "45000"
+      },
+      "id": 11
+    },
+    {
+      "formData": {
+        "assetName": "Projector",
+        "model": "epson",
+        "tag": "26273",
+        "serialNumber": "97654",
+        "category": "Audio/Visual",
+        "status": "Obsolete",
+        "purchasePrice": "45000"
+      },
+      "forDisposal": true,
+      "id": 12
+    }
+  ]
+}

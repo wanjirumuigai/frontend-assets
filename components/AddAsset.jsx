@@ -14,42 +14,76 @@ const [formData, setFormData] = useState({
   serialNumber: '',
   category:'',
   status: '',
-  purchase_price: '',
-  forDisposal:''
+  purchasePrice: '',
+  
+  
+  
 })
+const [checked, setChecked] = useState(false); 
+
+function handleChange(e) {
+    setFormData({
+        ...formData,
+                [e.target.name]: e.target.value,
+      });
+
+    
+    
+    
+
+}
+
+const handleSubmit = () => {
+    
+    fetch("http://localhost:3000/assets", {
+        method: "POST",
+        body: JSON.stringify({
+          formData,
+          forDisposal: checked
+        }),
+        headers: {
+          "content-type": "application/json",
+        },
+      }).catch((e) => console.log(e));
+
+}
 
 
   return (
     <>
 <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
     <h1 className="text-xl font-bold text-white capitalize dark:text-white">Add Asset</h1>
-    <form>
+    <form onSubmit={(e) => {
+        e.preventDefault()
+        handleSubmit()}}> 
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
-                <label className="text-white dark:text-gray-200" for="assetName">Asset Name</label>
-                <input id="username" type="text" value={formData.assetName} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+                <label className="text-white dark:text-gray-200" >Asset Name</label>
+                <input id="username" type="text" value={formData.assetName} name='assetName' onChange={handleChange} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
             </div>
 
             <div>
-                <label className="text-white dark:text-gray-200" for="model">Model</label>
-                <input id="emailAddress" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required/>
+                <label className="text-white dark:text-gray-200" >Model</label>
+                <input id="emailAddress" type="text" name="model" onChange={handleChange} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required/>
             </div>
 
             <div>
-                <label className="text-white dark:text-gray-200" for="assetTag">Asset Tag</label>
-                <input id="password" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required/>
+                <label className="text-white dark:text-gray-200" >Asset Tag</label>
+                <input id="password" type="text" name="tag" onChange={handleChange} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required/>
             </div>
 
             <div>
                 <label className="text-white dark:text-gray-200" >Serial Number</label>
-                <input id="passwordConfirmation" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+                <input id="passwordConfirmation" name="serialNumber" type="text" onChange={handleChange} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
             </div>
 
             <div>
                 <label className="text-white dark:text-gray-200" >Select Category</label>
-                <select className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required>
-                <option selected>Select Category</option>
-                    <option>Personal Computers</option>
+                <select onChange={handleChange} name="category" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required>
+                <option defaultValue={true}>Select Category</option>
+                    <option>Accessories</option>
+                    <option>Laptops</option>
+                    <option>Desktops</option>
                     <option>Servers</option>
                     <option>Networking</option>
                     <option>Audio/Visual</option>
@@ -57,8 +91,8 @@ const [formData, setFormData] = useState({
             </div>
             <div>
                 <label className="text-white dark:text-gray-200" >Select Status</label>
-                <select className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                <option selected>Select Status</option>
+                <select name="status" onChange={handleChange} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <option defaultValue={true} >Select Status</option>
                     <option>Ready to Deploy</option>
                     <option>Broken</option>
                     <option>Out for Repair</option>
@@ -68,7 +102,7 @@ const [formData, setFormData] = useState({
             </div>
             <div>
                 <label className="text-white dark:text-gray-200" >Purchase Price</label>
-                <input id="date" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+                <input id="date" type="number" name="purchasePrice" onChange={handleChange} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
             </div>
             <div>
                 <label className="text-white dark:text-gray-200" >Notes</label>
@@ -76,11 +110,11 @@ const [formData, setFormData] = useState({
             </div>
 
             </div>
-            <div class="flex items-start mb-6">
-    <div class="flex items-center h-5">
-      <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required/>
+            <div className="flex items-start mb-6">
+    <div className="flex items-center h-5">
+      <input id="remember" type="checkbox"  value={checked} name="forDisposal" onChange={() => setChecked(!checked)}  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"/>
     </div>
-    <label for="remember" class="ml-2 text-white dark:text-gray-200">Marked for Disposal?</label>
+    <label  className="ml-2 text-white dark:text-gray-200">Marked for Disposal?</label>
   </div>
 
 
