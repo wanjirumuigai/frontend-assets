@@ -1,7 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
 
 const ViewAsset = ({params}) => {
+    const router = useRouter()
 
     const {assetId} = params
     const [asset, setAsset] = useState([])
@@ -15,6 +17,11 @@ const ViewAsset = ({params}) => {
         }
         fetchAsset()
     }, [assetId])
+
+    function handleCancel() {
+        router.push('http://localhost:8000/')
+
+    }
 
 
   return (
@@ -62,6 +69,18 @@ const ViewAsset = ({params}) => {
                 <label className="text-white dark:text-gray-200" >Department</label>
                 <input readOnly name="serialNumber" value='' type="text"  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
             </div>
+            <div>
+                <label className="text-white dark:text-gray-200" >Assigned By</label>
+                <input readOnly name="serialNumber" value='' type="text"  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+            </div>
+            <div>
+                <label className="text-white dark:text-gray-200" >Return Date</label>
+                <input readOnly name="serialNumber" value='' type="date"  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+            </div>
+            <div>
+                <label className="text-white dark:text-gray-200" >Recived By</label>
+                <input readOnly name="serialNumber" value='' type="text"  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
+            </div>
 
             <div>
                 <label className="text-white dark:text-gray-200" >Purchase Price</label>
@@ -77,7 +96,7 @@ const ViewAsset = ({params}) => {
             <div className="flex justify-between mt-6">
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Edit</button>
 
-            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Cancel</button>
+            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600" onClick={handleCancel}>Cancel</button>
         </div>
     </form>
 </section>
