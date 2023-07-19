@@ -3,7 +3,7 @@
     {
       "id": 1,
       "assetName": "Desktop Computer",
-      "assetTag": "IT5637",
+      "tag": "IT5637",
       "serialNumber": "ABC123",
       "purchasePrice": "100000",
       "category": "Desktops",
@@ -13,7 +13,7 @@
     },
     {
       "assetName": "Asus",
-      "assetTag": "IT678",
+      "tag": "IT678",
       "serialNumber": "ytu3771",
       "model": "Asus Zenbook",
       "category": "laptops",
@@ -23,7 +23,7 @@
     },
     {
       "assetName": "HP LAPTOP",
-      "assetTag": "ITHP091",
+      "tag": "ITHP091",
       "serialNumber": "YDHDBVS3",
       "model": "HP",
       "category": "laptops",
@@ -33,7 +33,7 @@
     },
     {
       "assetName": "HP LAPTOP",
-      "assetTag": "ITHP091",
+      "tag": "ITHP091",
       "serialNumber": "YDHDBVS2",
       "model": "HP",
       "category": "laptops",
@@ -43,7 +43,7 @@
     },
     {
       "assetName": "HP LAPTOP",
-      "assetTag": "ITHP091",
+      "tag": "ITHP091",
       "serialNumber": "YDHDBVS1",
       "model": "HP",
       "category": "laptops",
@@ -52,77 +52,58 @@
       "id": 5
     },
     {
-      "formData": {
-        "assetName": "Laptop",
-        "model": "Hp Spectre",
-        "tag": "hgudkjmd",
-        "serialNumber": "67389",
-        "category": "Laptops",
-        "status": "Ready to Deploy",
-        "purchasePrice": "100000"
-      },
-      "id": 6
+      "assetName": "Laptop",
+      "model": "Asus Zenbook",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "GH5672H",
+      "category": "Laptops",
+      "status": "Deployed",
+      "purchasePrice": "172000",
+      "id": 13
     },
     {
-      "formData": {
-        "assetName": "Laptop",
-        "model": "Hp Spectre",
-        "tag": "hgudkjmd",
-        "serialNumber": "67389",
-        "category": "Laptops",
-        "status": "Ready to Deploy",
-        "purchasePrice": "100000"
-      },
-      "id": 7
-    },
-    {
-      "formData": {
-        "assetName": "Laptop",
-        "model": "Hp Spectre",
-        "tag": "hgudkjmd",
-        "serialNumber": "67389",
-        "category": "Laptops",
-        "status": "Ready to Deploy",
-        "purchasePrice": "100000"
-      },
-      "id": 8
-    },
-    {
-      "formData": {
-        "purchasePrice": "100000"
-      },
-      "id": 9
-    },
-    {
-      "formData": {
-        "purchasePrice": "100000"
-      },
-      "id": 10
-    },
-    {
-      "formData": {
-        "assetName": "Projector",
-        "model": "epson",
-        "tag": "26273",
-        "serialNumber": "97654",
-        "category": "Audio/Visual",
-        "status": "Obsolete",
-        "purchasePrice": "45000"
-      },
-      "id": 11
-    },
-    {
-      "formData": {
-        "assetName": "Projector",
-        "model": "epson",
-        "tag": "26273",
-        "serialNumber": "97654",
-        "category": "Audio/Visual",
-        "status": "Obsolete",
-        "purchasePrice": "45000"
-      },
+      "assetName": "Laptop",
+      "model": "Asus Zenbook",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "hdgdy7898",
+      "category": "Laptops",
+      "status": "Ready to Deploy",
+      "purchasePrice": "100001",
       "forDisposal": true,
-      "id": 12
+      "id": 14
+    },
+    {
+      "assetName": "Laptop",
+      "model": "Asus Zenbook",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "hdgdy7898",
+      "category": "Laptops",
+      "status": "Ready to Deploy",
+      "purchasePrice": "100000",
+      "forDisposal": false,
+      "id": 15
+    },
+    {
+      "assetName": "UPS",
+      "model": "Mecer 650v",
+      "tag": "KISE/ICT/0527",
+      "serialNumber": "HJDT2677",
+      "category": "Accessories",
+      "status": "Broken",
+      "purchasePrice": "7500",
+      "forDisposal": false,
+      "id": 16
+    },
+    {
+      "assetName": "PROJECTOR",
+      "model": "EPSON",
+      "tag": "KISE/ICT/0528",
+      "serialNumber": "FGH4572",
+      "category": "Audio/Visual",
+      "status": "Obsolete",
+      "purchasePrice": "50001",
+      "forDisposal": false,
+      "id": 17
     }
   ]
 }
