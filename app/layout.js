@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
               </div>
               <hr className="border-zinc-900" />
             </div>
-            <div className="main-body">{children}</div>
+            <div className="main-body px-11 py-5">{children}</div>
           </div>
         </div>
       </body>
