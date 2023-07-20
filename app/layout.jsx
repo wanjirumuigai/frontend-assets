@@ -8,6 +8,7 @@ import { FaUserGear } from "react-icons/fa6";
 import { MdMenuOpen } from "react-icons/md";
 import { RiDashboard3Line } from "react-icons/ri";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { TbLicense } from "react-icons/tb";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,6 +50,12 @@ export default function RootLayout({ children }) {
                 <RiUserSettingsLine size={28} color="white" />
                 <Link className="text-white text-lg" href="/users">
                   Users
+                </Link>
+              </div>
+              <div className="link-group flex gap-3 my-2 ml-10">
+                <TbLicense size={28} color="white" />
+                <Link className="text-white text-lg" href="/licenses">
+                  Licenses
                 </Link>
               </div>
             </div>
