@@ -13,7 +13,7 @@ const options = {
 const ShowAssets = () => {
 
     const [assets, setAssets] = useState([])
-    const [searchTerm, setSearchTerm] = useState('')
+    const [searchItems, setSearchItems] = useState([])
     const router = useRouter()
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const ShowAssets = () => {
           const res = await fetch('http://localhost:3000/assets');
           const data = await res.json();
          setAssets(data)
+         setSearchItems(data)
         };
 
         fetchMovies();
@@ -40,7 +41,7 @@ const ShowAssets = () => {
         </tr>
       );
 
-      const rows = assets.map((element) => (
+      const rows = searchItems.map((element) => (
         <tr key={element.id} id={element.id}>
 
             <td>{element.assetName}</td>
@@ -69,10 +70,16 @@ function handleViewButton(id) {
 }
 
 function handleSearch(e) {
-    setSearchTerm(e.target.value)
-}
+    const foundItems = fuse.search(e.target.value).map((element) => element.item)
+if (foundItems.length === 0) {
+  setSearchItems(assets)
+} else {
 
-console.log(searchTerm)
+  setSearchItems(foundItems)
+}
+  }
+
+
 
 
   return (
@@ -86,7 +93,7 @@ console.log(searchTerm)
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
         </div>
-        <input  type="search" name='searchTerm' onKeyDown={handleSearch} id="default-search" value={searchTerm}  class="block p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required/>
+        <input  type="search" name='searchTerm' onKeyUp={handleSearch} id="default-search"  class="block p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required/>
 
     </div>
 </form>
