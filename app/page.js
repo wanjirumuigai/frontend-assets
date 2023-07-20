@@ -7,8 +7,8 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main>
-      {/* <AddAsset /> */}
-      {/* <ShowAssets /> */}
+      <AddAsset />
+      <ShowAssets />
       <AssignAsset />
     </main>
   );

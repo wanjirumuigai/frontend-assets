@@ -104,6 +104,26 @@
       "purchasePrice": "50001",
       "forDisposal": false,
       "id": 17
+    },
+    {
+      "assetName": "Mouse",
+      "model": "HP",
+      "tag": "",
+      "serialNumber": "",
+      "category": "Accessories",
+      "status": "Ready to Deploy",
+      "purchasePrice": "999",
+      "id": 18
+    },
+    {
+      "assetName": "Keyboard",
+      "model": "Logitech",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "CN256781",
+      "category": "Accessories",
+      "status": "Deployed",
+      "purchasePrice": "1000",
+      "id": 19
     }
   ]
 }

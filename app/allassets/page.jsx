@@ -57,7 +57,11 @@ const ShowAssets = () => {
           >
             View
           </Button>
-          <Button variant="outline" leftIcon={<IconEdit size="1rem" />}>
+          <Button
+            onClick={() => handleEdit(element.id)}
+            variant="outline"
+            leftIcon={<IconEdit size="1rem" />}
+          >
             Edit
           </Button>
         </Button.Group>
@@ -67,6 +71,10 @@ const ShowAssets = () => {
 
   function handleViewButton(id) {
     router.push(`/view/${id}`);
+  }
+
+  function handleEdit(id) {
+    router.push(`/edit/${id}`);
   }
 
   function handleSearch(e) {
@@ -82,7 +90,7 @@ const ShowAssets = () => {
 
   return (
     <>
-      <section className="w-full p-6 mx-auto bg-indigo-300 rounded-md shadow-md dark:bg-gray-800 mt-20">
+      <section className="w-full p-6 mx-auto bg-indigo-300 rounded-md shadow-md dark:bg-gray-800 ">
         <form className="ml-4 mt-5">
           <label
             for="default-search"
