@@ -35,19 +35,19 @@ export default function RootLayout({ children }) {
               </div>
               <div className="link-group flex gap-3 my-2 ml-10">
                 <FaComputer size={28} color="white" />
-                <Link className="text-white text-lg" href="/">
+                <Link className="text-white text-lg" href="/assets">
                   Assets
                 </Link>
               </div>
               <div className="link-group flex gap-3 my-2 ml-10">
                 <FaLaptopFile size={28} color="white" />
-                <Link className="text-white text-lg" href="/">
+                <Link className="text-white text-lg" href="/assets">
                   Assign Assets
                 </Link>
               </div>
               <div className="link-group flex gap-3 my-2 ml-10">
                 <RiUserSettingsLine size={28} color="white" />
-                <Link className="text-white text-lg" href="/">
+                <Link className="text-white text-lg" href="/users">
                   Users
                 </Link>
               </div>
