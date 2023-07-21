@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "@mantine/core";
@@ -91,7 +90,7 @@ const ShowAssets = () => {
 
   return (
     <>
-      <section className="w-full p-6 mx-auto bg-indigo-300 rounded-md shadow-md dark:bg-gray-800 ">
+      <section className="w-full p-6 mx-auto bg-indigo-300 rounded-md shadow-md dark:bg-gray-800">
         <form className="ml-4 mt-5">
           <label
             for="default-search"
@@ -148,4 +147,3 @@ const ShowAssets = () => {
 };
 
 export default ShowAssets;
-

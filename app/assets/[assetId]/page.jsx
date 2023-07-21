@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const EditPage = ({ params }) => {
   const [asset, setAsset] = useState([]);
@@ -26,11 +27,10 @@ const EditPage = ({ params }) => {
   }, [assetId]);
 
   function handleCancel() {
-    router.push("/assets/");
+    router.push("/assets");
   }
-  function handleSaveEdit(e) {
-    e.preventDefault();
-    console.log(formData);
+  function handleEdit() {
+    router.push(`/edit/${assetId}`);
   }
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -206,17 +206,11 @@ const EditPage = ({ params }) => {
           </div>
 
           <div className="flex justify-between mt-6">
-            <button
-              className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
-              onClick={handleCancel}
-            >
-              Cancel
+            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+              <Link href="/assets">Cancel</Link>
             </button>
-            <button
-              onClick={(e) => handleSaveEdit(e)}
-              className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
-            >
-              Save
+            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+              <Link href={`/edit/${assetId}`}>Edit</Link>
             </button>
           </div>
         </form>
