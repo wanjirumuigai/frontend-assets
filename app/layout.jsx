@@ -1,21 +1,22 @@
-// "use client"
+"use client";
 import Link from "next/link";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { FaComputer } from "react-icons/fa6";
-import { FaLaptopFile } from "react-icons/fa6";
+import { FaLaptopFile, FaChevronLeft } from "react-icons/fa6";
 import { FaUserGear } from "react-icons/fa6";
 import { MdMenuOpen } from "react-icons/md";
 import { RiDashboard3Line } from "react-icons/ri";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { TbLicense } from "react-icons/tb";
+import { NavLink } from "@mantine/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "ICT Asset Management",
-  description: "KISE Asset Management App",
-};
+// export const metadata = {
+//   title: "ICT Asset Management",
+//   description: "KISE Asset Management App",
+// };
 
 export default function RootLayout({ children }) {
   return (
@@ -28,36 +29,88 @@ export default function RootLayout({ children }) {
             </h1>
             <hr />
             <div className="links-container flex flex-col justify-start py-4">
-              <div className="link-group flex gap-3 my-2 ml-10">
-                <RiDashboard3Line size={28} color="white" />
-                <Link className="text-white text-lg" href="/">
-                  Dashboard
-                </Link>
-              </div>
-              <div className="link-group flex gap-3 my-2 ml-10">
-                <FaComputer size={28} color="white" />
-                <Link className="text-white text-lg" href="/assets">
-                  Assets
-                </Link>
-              </div>
-              <div className="link-group flex gap-3 my-2 ml-10">
-                <FaLaptopFile size={28} color="white" />
-                <Link className="text-white text-lg" href="/assets">
-                  Assign Assets
-                </Link>
-              </div>
-              <div className="link-group flex gap-3 my-2 ml-10">
-                <RiUserSettingsLine size={28} color="white" />
-                <Link className="text-white text-lg" href="/users">
-                  Users
-                </Link>
-              </div>
-              <div className="link-group flex gap-3 my-2 ml-10">
-                <TbLicense size={28} color="white" />
-                <Link className="text-white text-lg" href="/licenses">
-                  Licenses
-                </Link>
-              </div>
+              <NavLink
+                label="Dashboard"
+                icon={<RiDashboard3Line size={28} color="white" />}
+                className="text-white text-lg hover:bg-gray-950"
+                variant="subtle"
+                component={Link}
+                href="/"
+              />
+              <NavLink
+                label="Users"
+                icon={<RiUserSettingsLine size={28} color="white" />}
+                className="text-white text-lg hover:bg-gray-950"
+                variant="subtle"
+                rightSection={<FaChevronLeft size="0.8rem" stroke={1.5} />}
+                childrenOffset={40}
+              >
+                <NavLink
+                  label="All Users"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/users"
+                />
+                <NavLink
+                  label="New User"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/users/new"
+                />
+              </NavLink>
+              <NavLink
+                label="Licenses"
+                icon={<TbLicense size={28} color="white" />}
+                className="text-white text-lg hover:bg-gray-950"
+                variant="subtle"
+                rightSection={<FaChevronLeft size="0.8rem" stroke={1.5} />}
+                childrenOffset={40}
+              >
+                <NavLink
+                  label="All Licenses"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/licenses"
+                />
+                <NavLink
+                  label="New License"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/licenses/new"
+                />
+              </NavLink>
+              <NavLink
+                label="Assets"
+                icon={<FaComputer size={28} color="white" />}
+                childrenOffset={40}
+                className="text-white text-lg hover:bg-gray-950"
+                rightSection={<FaChevronLeft size="0.8rem" stroke={1.5} />}
+              >
+                <NavLink
+                  label="All Assets"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/assets"
+                />
+                <NavLink
+                  label="New Asset"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/assets/new"
+                />
+                <NavLink
+                  label="Assign Asset"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/assets/assign"
+                />
+                <NavLink
+                  label="Return Asset"
+                  className="text-white text-lg hover:bg-gray-950"
+                  component={Link}
+                  href="/assets/return"
+                />
+              </NavLink>
             </div>
           </div>
           <div className="main-section flex flex-col w-5/6">
