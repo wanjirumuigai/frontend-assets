@@ -1,0 +1,129 @@
+{
+  "assets": [
+    {
+      "id": 1,
+      "assetName": "Desktop Computer",
+      "tag": "IT5637",
+      "serialNumber": "ABC123",
+      "purchasePrice": "100000",
+      "category": "Desktops",
+      "model": "Dell Vostro",
+      "acquisition_date": "2023-01-01",
+      "status": "in_use"
+    },
+    {
+      "assetName": "Asus",
+      "tag": "IT678",
+      "serialNumber": "ytu3771",
+      "model": "Asus Zenbook",
+      "category": "laptops",
+      "status": "deployed",
+      "purchasePrice": "120000",
+      "id": 2
+    },
+    {
+      "assetName": "HP LAPTOP",
+      "tag": "ITHP091",
+      "serialNumber": "YDHDBVS3",
+      "model": "HP",
+      "category": "laptops",
+      "status": "obsolete",
+      "purchasePrice": "45000",
+      "id": 3
+    },
+    {
+      "assetName": "HP LAPTOP",
+      "tag": "ITHP091",
+      "serialNumber": "YDHDBVS2",
+      "model": "HP",
+      "category": "laptops",
+      "status": "obsolete",
+      "purchasePrice": "45000",
+      "id": 4
+    },
+    {
+      "assetName": "HP LAPTOP",
+      "tag": "ITHP091",
+      "serialNumber": "YDHDBVS1",
+      "model": "HP",
+      "category": "laptops",
+      "status": "obsolete",
+      "purchasePrice": "45000",
+      "id": 5
+    },
+    {
+      "assetName": "Laptop",
+      "model": "Asus Zenbook",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "GH5672H",
+      "category": "Laptops",
+      "status": "Deployed",
+      "purchasePrice": "172000",
+      "id": 13
+    },
+    {
+      "assetName": "Laptop",
+      "model": "Asus Zenbook",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "hdgdy7898",
+      "category": "Laptops",
+      "status": "Ready to Deploy",
+      "purchasePrice": "100001",
+      "forDisposal": true,
+      "id": 14
+    },
+    {
+      "assetName": "Laptop",
+      "model": "Asus Zenbook",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "hdgdy7898",
+      "category": "Laptops",
+      "status": "Ready to Deploy",
+      "purchasePrice": "100000",
+      "forDisposal": false,
+      "id": 15
+    },
+    {
+      "assetName": "UPS",
+      "model": "Mecer 650v",
+      "tag": "KISE/ICT/0527",
+      "serialNumber": "HJDT2677",
+      "category": "Accessories",
+      "status": "Broken",
+      "purchasePrice": "7500",
+      "forDisposal": false,
+      "id": 16
+    },
+    {
+      "assetName": "PROJECTOR",
+      "model": "EPSON",
+      "tag": "KISE/ICT/0528",
+      "serialNumber": "FGH4572",
+      "category": "Audio/Visual",
+      "status": "Obsolete",
+      "purchasePrice": "50001",
+      "forDisposal": false,
+      "id": 17
+    },
+    {
+      "assetName": "Mouse",
+      "model": "HP",
+      "tag": "",
+      "serialNumber": "",
+      "category": "Accessories",
+      "status": "Ready to Deploy",
+      "purchasePrice": "999",
+      "id": 18
+    },
+    {
+      "assetName": "Keyboard",
+      "model": "Logitech",
+      "tag": "KISE/ICT/0526",
+      "serialNumber": "CN256781",
+      "category": "Accessories",
+      "status": "Deployed",
+      "purchasePrice": "1000",
+      "id": 19
+    }
+  ]
+}
