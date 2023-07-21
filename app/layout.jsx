@@ -1,13 +1,10 @@
 "use client";
-import Link from "next/link";
 import "./globals.css";
+import Link from "next/link";
 import { Inter } from "next/font/google";
-import { FaComputer } from "react-icons/fa6";
-import { FaLaptopFile, FaChevronLeft } from "react-icons/fa6";
-import { FaUserGear } from "react-icons/fa6";
+import { FaComputer, FaChevronLeft, FaUserGear } from "react-icons/fa6";
+import { RiDashboard3Line, RiUserSettingsLine } from "react-icons/ri";
 import { MdMenuOpen } from "react-icons/md";
-import { RiDashboard3Line } from "react-icons/ri";
-import { RiUserSettingsLine } from "react-icons/ri";
 import { TbLicense } from "react-icons/tb";
 import { NavLink } from "@mantine/core";
 

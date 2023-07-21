@@ -3,7 +3,6 @@ import { FaBarcode, FaUserPlus, FaComputer, FaUsers } from "react-icons/fa6";
 import { ImBin } from "react-icons/im";
 import { GiAutoRepair } from "react-icons/gi";
 import { TbLicense, TbLicenseOff } from "react-icons/tb";
-import "./globals.css"
 
 export default function Home() {
   return (
