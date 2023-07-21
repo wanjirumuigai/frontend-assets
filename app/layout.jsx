@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
         <div className="flex flex-row">
           <div className="navbar bg-gray-900 w-1/6 h-screen">
             <h1 className="text-center font-bold text-lg text-white my-5">
-              ICT ASSET MANAGEMENT
+              <Link href="/">ICT ASSET MANAGEMENT</Link>
             </h1>
             <hr />
             <div className="links-container flex flex-col justify-start py-4">
