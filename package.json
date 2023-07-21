@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@mantine/carousel": "^6.0.17",
     "@mantine/core": "^6.0.17",
     "@mantine/dates": "^6.0.17",
@@ -24,6 +25,9 @@
     "@mantine/prism": "^6.0.17",
     "@mantine/spotlight": "^6.0.17",
     "@mantine/tiptap": "^6.0.17",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.1",
+    "@mui/styled-engine-sc": "^5.12.0",
     "@tabler/icons-react": "^2.26.0",
     "@tiptap/extension-link": "^2.0.4",
     "@tiptap/react": "^2.0.4",
@@ -39,6 +43,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "styled-components": "^5.3.11",
     "tailwindcss": "3.3.3"
   }
 }

@@ -70,7 +70,7 @@ const ShowAssets = () => {
   ));
 
   function handleViewButton(id) {
-    router.push(`/view/${id}`);
+    router.push(`/assets/${id}`);
   }
 
   function handleEdit(id) {
