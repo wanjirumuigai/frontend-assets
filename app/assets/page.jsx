@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "@mantine/core";
@@ -147,3 +148,4 @@ const ShowAssets = () => {
 };
 
 export default ShowAssets;
+
