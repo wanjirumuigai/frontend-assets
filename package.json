@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next -p 8000",
+    "dev": "next -p 8000 & json-server --watch db.json",
     "build": "next build",
     "start": "next start -p 3005",
     "lint": "next lint"
@@ -42,5 +42,8 @@
     "react-icons": "^4.10.1",
     "styled-components": "^5.3.11",
     "tailwindcss": "3.3.3"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.3"
   }
 }
