@@ -1,11 +1,54 @@
-export default function LoginPage() {
+"use client";
+import { useState } from "react";
+
+export default function LoginPage({ onLogin }) {
+  const [errors, setErrors] = useState();
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  function handleChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setLoginForm({ ...loginForm, [name]: value });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("http://127.0.0.1:4000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(loginForm),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => {
+          onLogin(user);
+          setLoginForm({
+            email: "",
+            password: "",
+          });
+        });
+      } else {
+        res.json().then((err) => setErrors(err.error));
+      }
+    });
+  }
   return (
     <div
       className="border border-2 p-5 rounded mx-auto my-20"
       style={{ width: "400px" }}
     >
+      {errors ? (
+        <p style={{ textAlign: "center", margin: "10px auto", color: "red" }}>
+          {errors}
+        </p>
+      ) : null}
       <h1 className="text-2xl mb-4 font-bold">LOGIN</h1>
-      <form className="space-y-4 md:space-y-6">
+      <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor="email"
@@ -19,6 +62,8 @@ export default function LoginPage() {
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-md focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
             placeholder="name@company.com"
+            onChange={handleChange}
+            value={loginForm.email}
             required={true}
           />
         </div>
@@ -35,6 +80,8 @@ export default function LoginPage() {
             id="password"
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-md block w-full p-2.5"
             required={true}
+            onChange={handleChange}
+            value={loginForm.password}
           />
         </div>
         <button
