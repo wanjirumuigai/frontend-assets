@@ -125,5 +125,39 @@
       "purchasePrice": "1000",
       "id": 19
     }
+  ],
+  "users": [
+    {
+      "firstName": "Fabian",
+      "lastName": "Matata",
+      "username": "matataf",
+      "pfnumber": "KISE/T105",
+      "department": "ICT",
+      "id": 1
+    },
+    {
+      "firstName": "Franklin",
+      "lastName": "Koome",
+      "username": "fkoome",
+      "pfnumber": "KISE/197",
+      "department": "Research",
+      "id": 2
+    },
+    {
+      "firstName": "Edwin",
+      "lastName": "Sabaya",
+      "username": "esabaya",
+      "pfnumber": "KISE/T99",
+      "department": "HR",
+      "id": 3
+    },
+    {
+      "firstName": "Davis",
+      "lastName": "Kaloi",
+      "username": "kaloid",
+      "pfnumber": "KISE/234",
+      "department": "Partnerships",
+      "id": 4
+    }
   ]
 }
