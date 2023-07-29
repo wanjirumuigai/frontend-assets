@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import { Button } from "@mantine/core";
+import { IconEye, IconEdit, IconSearch } from "@tabler/icons-react";
 
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
@@ -44,8 +46,8 @@ export default function LicensePage() {
   return (
     <>
       <h1 className="main-heading text-4xl font-bold">License Management</h1>
-      <Paper sx={{ width: '75%', overflow: "auto" }} className="mt-7">
-        <TableContainer >
+      <Paper sx={{ width: "80%", overflow: "auto" }} className="mt-7">
+        <TableContainer>
           <Table aria-label="simple table">
             <TableHead>
               <StyledTableRow>
@@ -64,6 +66,7 @@ export default function LicensePage() {
                 <StyledTableCell className="font-bold text-md uppercase">
                   No of Users
                 </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">Actions</StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
@@ -102,8 +105,24 @@ export default function LicensePage() {
                         days
                       </StyledTableCell>
                     )}
-                    <StyledTableCell className="font-bold text-md">
+                    <StyledTableCell className="font-bold text-md text-center">
                       {license.number_of_users}
+                    </StyledTableCell>
+                    <StyledTableCell className="font-bold text-md">
+                      <Button.Group>
+                        <Button
+                          variant="outline"
+                          leftIcon={<IconEye size="1rem" />}
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant="outline"
+                          leftIcon={<IconEdit size="1rem" />}
+                        >
+                          Edit
+                        </Button>
+                      </Button.Group>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
