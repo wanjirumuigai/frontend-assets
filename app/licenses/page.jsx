@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { Button } from "@mantine/core";
 import { IconEye, IconEdit, IconSearch } from "@tabler/icons-react";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
@@ -66,7 +68,9 @@ export default function LicensePage() {
                 <StyledTableCell className="font-bold text-md uppercase">
                   No of Users
                 </StyledTableCell>
-                <StyledTableCell className="font-bold text-md uppercase">Actions</StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Actions
+                </StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
@@ -109,19 +113,13 @@ export default function LicensePage() {
                       {license.number_of_users}
                     </StyledTableCell>
                     <StyledTableCell className="font-bold text-md">
-                      <Button.Group>
-                        <Button
-                          variant="outline"
-                          leftIcon={<IconEye size="1rem" />}
-                        >
-                          View
-                        </Button>
-                        <Button
-                          variant="outline"
-                          leftIcon={<IconEdit size="1rem" />}
-                        >
-                          Edit
-                        </Button>
+                      <Button.Group className="gap-1">
+                        <Tooltip title="View License Details" placement="top" arrow className="cursor-pointer">
+                          <IconEye size="1.5rem" color="white" className="bg-amber-600 rounded"/>
+                        </Tooltip>
+                        <Tooltip title="Edit License Details" placement="top" arrow className="cursor-pointer">
+                          <IconEdit size="1.5rem" color="white" className="bg-blue-600 rounded"/>
+                        </Tooltip>
                       </Button.Group>
                     </StyledTableCell>
                   </StyledTableRow>
