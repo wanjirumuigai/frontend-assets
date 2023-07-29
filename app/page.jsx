@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 import Dashboard from "@/components/Dashboard";
 import LoginPage from "./login/page";
+import AssetsList from "@/components/AssetsList";
 
 export default function Home() {
   const [user, setUser] = useState(null);
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
-  });
+  }, [user]);
 
   function onLogin(user) {
     setUser(user);
@@ -17,5 +18,10 @@ export default function Home() {
     setUser(null);
     localStorage.removeItem("user");
   }
-  return <>{user ? <Dashboard /> : <LoginPage onLogin={onLogin} />}</>;
+  return (
+    <>
+      <AssetsList />
+      {/* {user ? <Dashboard /> : <LoginPage onLogin={onLogin} />} */}
+    </>
+  );
 }
