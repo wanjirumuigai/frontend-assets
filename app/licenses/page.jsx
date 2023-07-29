@@ -46,7 +46,7 @@ export default function LicensePage() {
                 <TableCell>{license.purchase_date}</TableCell>
                 <TableCell>{license.expiry_date}</TableCell>
                 <TableCell>{license.number_of_users}</TableCell>
-                <TableCell>{100} days</TableCell>
+                {(Math.floor((new Date(license.expiry_date) - new Date()) / 86400000)) < 0 ? <TableCell>Expired</TableCell> : <TableCell>{Math.floor((new Date(license.expiry_date) - new Date()) / 86400000)} days</TableCell>}
               </TableRow>
             ))}
           </TableBody>
