@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function AddUser() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    pfnumber: "",
-    username: "",
-    department: ""
+    role: "",
+    password_digest: "",
+    email: "",
+    department: "",
+    designation: "",
   });
   const [checked, setChecked] = useState(false);
+  const router = useRouter();
 
   function handleChange(e) {
     setFormData({
@@ -27,15 +31,9 @@ function AddUser() {
       headers: {
         "content-type": "application/json",
       },
-    }).catch((e) => console.log(e));
+    }).then(router.push(`/users`))
+    .catch((e) => console.log(e));
 
-    setFormData({
-    firstName: "",
-    lastName: "",
-    pfnumber: "",
-    username: "",
-    department: ""
-    });
   };
 
   return (
@@ -82,11 +80,22 @@ function AddUser() {
             </div>
 
             <div>
-              <label className="text-white dark:text-gray-200">Username</label>
+              <label className="text-white dark:text-gray-200">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+
+            <div>
+              <label className="text-white dark:text-gray-200">Role</label>
               <input
                 type="text"
-                name="username"
-                value={formData.username}
+                name="role"
+                value={formData.role}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -94,12 +103,12 @@ function AddUser() {
 
             <div>
               <label className="text-white dark:text-gray-200">
-                P/F Number
+                Password
               </label>
               <input
-                name="pfnumber"
-                value={formData.pfnumber}
-                type="text"
+                name="password_digest"
+                value={formData.password_digest}
+                type="password"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -112,6 +121,19 @@ function AddUser() {
               <input
                 name="department"
                 value={formData.department}
+                type="text"
+                onChange={handleChange}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+
+            <div>
+              <label className="text-white dark:text-gray-200">
+                Designation
+              </label>
+              <input
+                name="designation"
+                value={formData.designation}
                 type="text"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"

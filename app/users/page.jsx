@@ -8,7 +8,7 @@ import Fuse from "fuse.js";
 
 const options = {
   includeScore: true,
-  keys: ["firstName", "lastName", "username", "pfnumber", "department"],
+  keys: ["firstName", "lastName", "email", "password_digest", "department"],
 };
 const ShowUsers = () => {
   const [users, setUsers] = useState([]);
@@ -31,9 +31,10 @@ const ShowUsers = () => {
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Username</th>
-      <th>P/F Number</th>
+      <th>email</th>
+      <th>Role</th>
       <th>Department</th>
+      <th>Designation</th>
       <th>Actions</th>
     </tr>
   );
@@ -42,9 +43,10 @@ const ShowUsers = () => {
     <tr key={element.id} id={element.id}>
       <td>{element.firstName}</td>
       <td>{element.lastName}</td>
-      <td>{element.username}</td>
-      <td>{element.pfnumber}</td>
+      <td>{element.email}</td>
+      <td>{element.role}</td>
       <td>{element.department}</td>
+      <td>{element.designation}</td>
       <td>
         {" "}
         <Button.Group>
@@ -120,7 +122,7 @@ const ShowUsers = () => {
               onKeyUp={handleSearch}
               id="default-search"
               class="block p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search by Name, P/F No., username..."
+              placeholder="Search by Name, email..."
               required
             />
           </div>
