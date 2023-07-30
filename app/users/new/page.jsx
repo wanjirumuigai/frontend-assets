@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 
 function AddUser() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     role: "",
     password_digest: "",
     email: "",
@@ -60,8 +60,8 @@ function AddUser() {
               </label>
               <input
                 type="text"
-                value={formData.firstName}
-                name="firstName"
+                value={formData.firstname}
+                name="firstname"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -71,8 +71,8 @@ function AddUser() {
               <label className="text-white dark:text-gray-200">Last Name</label>
               <input
                 type="text"
-                name="lastName"
-                value={formData.lastName}
+                name="lastname"
+                value={formData.lastname}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 required

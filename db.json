@@ -128,8 +128,8 @@
   ],
   "users": [
     {
-      "firstName": "Fabian",
-      "lastName": "Matata",
+      "firstname": "Fabian",
+      "lastname": "Matata",
       "email": "matataf@kise.com",
       "role": "Developer",
       "password_digest": "deuiyt7ubdewwsuuew32d",
@@ -138,8 +138,8 @@
       "id": 1
     },
     {
-      "firstName": "Franklin",
-      "lastName": "Koome",
+      "firstname": "Franklin",
+      "lastname": "Koome",
       "email": "fkoome@kise.com",
       "role": "Web Research",
       "password_digest": "ndiewyc8uvbwe6t2nwesopHI",
@@ -148,8 +148,8 @@
       "id": 2
     },
     {
-      "firstName": "Edwin",
-      "lastName": "Sabaya",
+      "firstname": "Edwin",
+      "lastname": "Sabaya",
       "email": "esabaya@kise.com",
       "role": "Letters",
       "password_digest": "JDIEYDC9INDWQ8NKiyeudt7w",
@@ -158,8 +158,8 @@
       "id": 3
     },
     {
-      "firstName": "Davis",
-      "lastName": "Kaloi",
+      "firstname": "Davis",
+      "lastname": "Kaloi",
       "email": "kaloid@kise.com",
       "role": "Linkages",
       "password_digest": "cfuegd78udw6yd8ik2",
@@ -168,8 +168,8 @@
       "id": 4
     },
     {
-      "firstName": "Jane",
-      "lastName": "Doe",
+      "firstname": "Jane",
+      "lastname": "Doe",
       "role": "Admin",
       "password_digest": "ddrfg56y7h6nybS#ftrrr",
       "email": "jdoe@kise.com",
@@ -178,8 +178,8 @@
       "id": 5
     },
     {
-      "firstName": "Test",
-      "lastName": "Name",
+      "firstname": "Test",
+      "lastname": "Name",
       "role": "New",
       "password_digest": "crefr4tg542e43dcr3",
       "email": "tname@kise.com",
@@ -188,8 +188,8 @@
       "id": 6
     },
     {
-      "firstName": "John",
-      "lastName": "Doe",
+      "firstname": "John",
+      "lastname": "Doe",
       "role": "Tester",
       "password_digest": "syhe7ctd3de3oedi",
       "email": "jdoe@kise.com",

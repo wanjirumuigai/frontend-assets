@@ -6,8 +6,8 @@ import Link from "next/link";
 const ViewUser = ({ params }) => {
   const [user, setUser] = useState([]);
   const [formData, setFormData] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstname: user.firstname,
+    lastname: user.lastname,
     email: user.email,
     role: user.role,
     password_digest: user.password_digest,
@@ -30,7 +30,7 @@ const ViewUser = ({ params }) => {
     <div>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
-          {formData.firstName + " " + formData.lastName}
+          {formData.firstname + " " + formData.lastname}
         </h1>
         <form>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -40,8 +40,8 @@ const ViewUser = ({ params }) => {
               </label>
               <input
                 type="text"
-                value={formData.firstName}
-                name="firstName"
+                value={formData.firstname}
+                name="firstname"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 readOnly
               />
@@ -51,8 +51,8 @@ const ViewUser = ({ params }) => {
               <label className="text-white dark:text-gray-200">Last Name</label>
               <input
               type="text"
-                name="lastName"
-                value={formData.lastName}
+                name="lastname"
+                value={formData.lastname}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 readOnly
               />

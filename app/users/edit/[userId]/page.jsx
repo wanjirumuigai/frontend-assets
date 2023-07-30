@@ -6,8 +6,8 @@ import Link from "next/link";
 const EditPage = ({ params }) => {
   const [user, setUser] = useState([]);
   const [formData, setFormData] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstname: user.firstname,
+    lastname: user.lastname,
     email: user.email,
     password_digest: user.password_digest,
     department: user.department,
@@ -43,7 +43,7 @@ const EditPage = ({ params }) => {
     <div>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
-          Editing: {formData.firstName + " " + formData.lastName}
+          Editing: {formData.firstname + " " + formData.lastname}
         </h1>
         <form 
         onSubmit={(e) => {
@@ -58,8 +58,8 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                value={formData.firstName}
-                name="firstName"
+                value={formData.firstname}
+                name="firstname"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -69,8 +69,8 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                name="lastName"
-                value={formData.lastName}
+                name="lastname"
+                value={formData.lastname}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>

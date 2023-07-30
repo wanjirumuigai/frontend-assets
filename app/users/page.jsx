@@ -8,7 +8,7 @@ import Fuse from "fuse.js";
 
 const options = {
   includeScore: true,
-  keys: ["firstName", "lastName", "email", "password_digest", "department"],
+  keys: ["firstname", "lastname", "email", "password_digest", "department"],
 };
 const ShowUsers = () => {
   const [users, setUsers] = useState([]);
@@ -41,8 +41,8 @@ const ShowUsers = () => {
 
   const rows = searchItems.map((element) => (
     <tr key={element.id} id={element.id}>
-      <td>{element.firstName}</td>
-      <td>{element.lastName}</td>
+      <td>{element.firstname}</td>
+      <td>{element.lastname}</td>
       <td>{element.email}</td>
       <td>{element.role}</td>
       <td>{element.department}</td>
