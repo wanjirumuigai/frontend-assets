@@ -69,7 +69,7 @@ function AddUser() {
         <div className="flex justify-end mt-6">
         
           <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-            <Link href="/assets">Cancel</Link>
+            <Link href="/users">Cancel</Link>
           </button>
         </div>
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
