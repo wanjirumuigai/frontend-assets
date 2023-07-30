@@ -45,6 +45,7 @@ export default function LicensePage() {
     },
   }));
 
+
   return (
     <>
       <h1 className="main-heading text-4xl font-bold">License Management</h1>
@@ -117,7 +118,7 @@ export default function LicensePage() {
                         <Tooltip title="View License Details" placement="top" arrow className="cursor-pointer">
                           <IconEye size="1.5rem" color="white" className="bg-amber-600 rounded"/>
                         </Tooltip>
-                        <Tooltip title="Edit License Details" placement="top" arrow className="cursor-pointer">
+                        <Tooltip title="Edit License Details" placement="top" arrow className="cursor-pointer" >
                           <IconEdit size="1.5rem" color="white" className="bg-blue-600 rounded"/>
                         </Tooltip>
                       </Button.Group>
