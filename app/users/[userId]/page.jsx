@@ -105,7 +105,7 @@ const EditPage = ({ params }) => {
               <Link href="/users">Cancel</Link>
             </button>
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-              <Link href={`/usersedit/${userId}`}>Edit</Link>
+              <Link href={`/users/edit/${userId}`}>Edit</Link>
             </button>
           </div>
         </form>

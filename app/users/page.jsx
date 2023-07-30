@@ -183,10 +183,10 @@ const ShowUsers = () => {
                   </StyledTableCell>
                   <StyledTableCell className="font-bold text-md">
                     <Button.Group className="gap-1">
-                      <Tooltip title="View user Details" placement="top" arrow className="cursor-pointer">
+                      <Tooltip title="View user Details" placement="top" arrow className="cursor-pointer" onClick={() => handleViewButton(user.id)}>
                         <IconEye size="1.5rem" color="white" className="bg-amber-600 rounded"/>
                       </Tooltip>
-                      <Tooltip title="Edit user Details" placement="top" arrow className="cursor-pointer" >
+                      <Tooltip title="Edit user Details" placement="top" arrow className="cursor-pointer" onClick={() => handleEdit(user.id)} >
                         <IconEdit size="1.5rem" color="white" className="bg-blue-600 rounded"/>
                       </Tooltip>
                     </Button.Group>
