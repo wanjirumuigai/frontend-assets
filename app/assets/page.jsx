@@ -50,8 +50,8 @@ export default function ShowAssets() {
   }, []);
 
   function handleEvent(params) {
-    // console.log(params.row.id);
-    route.push(`/assets/${params.row.id}`);
+    //console.log(params.row.id);
+    route.replace(`/assets/${params.row.id}`);
   }
 
   const fuse = new Fuse(assets, options);
