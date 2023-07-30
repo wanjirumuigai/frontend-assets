@@ -37,16 +37,7 @@ const ShowUsers = () => {
   }, []);
 
   const fuse = new Fuse(users, options);
-  const ths = (
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-      <th>P/F Number</th>
-      <th>Department</th>
-      <th>Actions</th>
-    </tr>
-  );
+
 
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -69,34 +60,6 @@ const ShowUsers = () => {
     },
   }));
 
-  // const rows = searchItems.map((element) => (
-  //   <tr key={element.id} id={element.id}>
-  //     <td>{element.firstName}</td>
-  //     <td>{element.lastName}</td>
-  //     <td>{element.username}</td>
-  //     <td>{element.pfnumber}</td>
-  //     <td>{element.department}</td>
-  //     <td>
-  //       {" "}
-  //       <Button.Group>
-  //         <Button
-  //           variant="outline"
-  //           onClick={() => handleViewButton(element.id)}
-  //           leftIcon={<IconEye size="1rem" />}
-  //         >
-  //           View
-  //         </Button>
-  //         <Button
-  //           onClick={() => handleEdit(element.id)}
-  //           variant="outline"
-  //           leftIcon={<IconEdit size="1rem" />}
-  //         >
-  //           Edit
-  //         </Button>
-  //       </Button.Group>
-  //     </td>
-  //   </tr>
-  // ));
 
   function handleViewButton(id) {
     router.push(`/users/${id}`);

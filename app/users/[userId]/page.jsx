@@ -2,21 +2,50 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Table } from "@mantine/core";
 
-const EditPage = ({ params }) => {
+
+const ths = (
+  <tr>
+    <th>NAME</th>
+    <th>MODEL</th>
+    <th>TAG</th>
+    <th>SERIAL NO.</th>
+  </tr>
+);
+
+const elements= [
+  {name: "Mouse",
+  model: "HP",
+  tag: "KISE/ICT/3536",
+  serialNumber: "36TDSJ",
+}
+]
+
+const rows = elements.map((element) => (
+  <tr key={element.id}>
+     <td>{element.name}</td>
+    <td>{element.model}</td>
+    <td>{element.tag}</td>
+    <td>{element.serialNumber}</td>
+    
+  </tr>
+));
+
+const ViewPage = ({ params }) => {
   const [user, setUser] = useState([]);
   const [formData, setFormData] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    username: user.username,
-    pfnumber: user.pfnumber,
-    department: user.department
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    department: user.department,
+    designation: user.designation
   });
   const { userId } = params;
   const router = useRouter();
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await fetch(`http://localhost:3000/users/${userId}`);
+      const res = await fetch(`http://localhost:4000/users/${userId}`);
       const data = await res.json();
       setUser(data);
       setFormData(data);
@@ -38,19 +67,19 @@ const EditPage = ({ params }) => {
     <div>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
-          {formData.firstName + " " + formData.lastName}
+          {formData.firstname + " " + formData.lastname}
         </h1>
         <form>
-          <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label className="text-white dark:text-gray-200">
                 First Name
               </label>
               <input
-                onChange={handleChange}
                 type="text"
-                value={formData.firstName}
-                name="firstName"
+                value={formData.firstname}
+                name="firstname"
+                
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -58,48 +87,79 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Last Name</label>
               <input
-                onChange={handleChange}
                 type="text"
-                name="lastName"
-                value={formData.lastName}
+                name="lastname"
+                value={formData.lastname}
+                
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                required
               />
             </div>
 
             <div>
-              <label className="text-white dark:text-gray-200">Username</label>
+              <label className="text-white dark:text-gray-200">Email</label>
               <input
-                onChange={handleChange}
-                type="text"
-                name="username"
-                value={formData.username}
+                type="email"
+                name="email"
+                value={formData.email}
+                
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
-            </div>
+            </div>          
 
             <div>
               <label className="text-white dark:text-gray-200">
-                P/F Number
+                Department
               </label>
               <input
-                onChange={handleChange}
-                name="pfnumber"
-                value={formData.pfnumber}
+                name="department"
+                value={formData.department}
                 type="text"
+                
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
-              <label className="text-white dark:text-gray-200">Department</label>
+              <label className="text-white dark:text-gray-200">
+               Designation
+              </label>
               <input
-                onChange={handleChange}
+                name="designation"
+                value={formData.designation}
                 type="text"
-                name="department"
-                value={formData.department}
+                
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />
+              />              
             </div>
-          </div>
+            <div>
+              <label className="text-white dark:text-gray-200">
+                Select Role
+              </label>
+              <select
+                
+                name="role"
+                value={formData.role}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                required
+              >
+                <option defaultValue={true}>Select Category</option>
+                <option>Admin</option>
+                <option>User</option>
+               
+              </select>
+            </div>
+            </div>
+            {/* List of Assigned Assets */}
+            <h1 className="mt-5"></h1>
+            <Table className="text-slate-950">
+      <caption className="mt-5">Assigned Assets </caption>
+      <thead >{ths}</thead>
+      <tbody>{rows}</tbody>
+      
+    </Table>
+
+
+
           <div className="flex justify-between mt-6">
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
               <Link href="/users">Cancel</Link>
@@ -114,4 +174,4 @@ const EditPage = ({ params }) => {
   );
 };
 
-export default EditPage;
+export default ViewPage;
