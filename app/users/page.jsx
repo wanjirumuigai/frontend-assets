@@ -152,7 +152,7 @@ const ShowUsers = () => {
             {users &&
               users.map((user) => (
                 <StyledTableRow
-                  key={user.email}
+                  key={user.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   className="font-bold text-md"
                 >
