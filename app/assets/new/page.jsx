@@ -23,7 +23,7 @@ function AddAsset() {
   }
 
   const handleSubmit = () => {
-    fetch("http://localhost:3000/assets", {
+    fetch("http://localhost:4000/assets", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {

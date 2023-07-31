@@ -11,23 +11,23 @@ const options = {
 
 const columns = [
   { field: "id", headerName: "ID", width: 70, color: "red" },
-  { field: "assetName", headerName: "Asset Name", width: 130 },
+  { field: "asset_name", headerName: "Asset Name", width: 130 },
   { field: "model", headerName: "Model", width: 130 },
   {
-    field: "tag",
+    field: "asset_tag",
     headerName: "Tag",
 
     width: 90,
   },
   {
-    field: "serialNumber",
+    field: "serial_no",
     headerName: "Serial Number",
 
     width: 90,
   },
   {
-    field: "Actions",
-    headerName: "Serial Number",
+    field: "marked_for_disposal",
+    headerName: "Marked for Disposal",
 
     width: 90,
   },
@@ -40,7 +40,7 @@ export default function ShowAssets() {
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:3000/assets");
+      const res = await fetch("http://localhost:4000/assets");
       const data = await res.json();
       setAssets(data);
       setSearchItems(data);

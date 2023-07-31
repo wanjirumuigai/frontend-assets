@@ -18,7 +18,7 @@ const EditPage = ({ params }) => {
   const router = useRouter();
   useEffect(() => {
     const fetchAsset = async () => {
-      const res = await fetch(`http://localhost:3000/assets/${assetId}`);
+      const res = await fetch(`http://localhost:4000/assets/${assetId}`);
       const data = await res.json();
       setAsset(data);
       setFormData(data);
@@ -38,7 +38,7 @@ const EditPage = ({ params }) => {
 
   return (
     <div>
-      <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
+      <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-2">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           {asset.assetName + ": " + asset.model}
         </h1>

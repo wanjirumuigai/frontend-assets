@@ -38,8 +38,6 @@ const ShowUsers = () => {
 
   const fuse = new Fuse(users, options);
 
-
-
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -59,7 +57,6 @@ const ShowUsers = () => {
       border: 0,
     },
   }));
-
 
   function handleViewButton(id) {
     router.push(`/users/${id}`);
@@ -82,85 +79,105 @@ const ShowUsers = () => {
 
   return (
     <>
-    <h1 className="main-heading text-4xl font-bold">user Management</h1>
-    <Paper sx={{ width: "80%", overflow: "auto" }} className="mt-7">
-      <TableContainer>
-        <Table aria-label="simple table">
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell className="font-bold text-md uppercase">
-               Firstname
-              </StyledTableCell>
-              <StyledTableCell className="font-bold text-md uppercase">
-                Lastname
-              </StyledTableCell>
-              <StyledTableCell className="font-bold text-md uppercase">
-                Email
-              </StyledTableCell>
-              <StyledTableCell className="font-bold text-md uppercase">
-               Department
-              </StyledTableCell>
-              <StyledTableCell className="font-bold text-md uppercase">
-               Designation
-              </StyledTableCell>
-              <StyledTableCell className="font-bold text-md uppercase">
-               Role
-              </StyledTableCell>
-              <StyledTableCell className="font-bold text-md uppercase">
-                Actions
-              </StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {users &&
-              users.map((user) => (
-                <StyledTableRow
-                  key={user.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  className="font-bold text-md"
-                >
-                  <StyledTableCell
-                    component="th"
-                    scope="row"
+      <h1 className="main-heading text-4xl font-bold">user Management</h1>
+      <Paper sx={{ width: "80%", overflow: "auto" }} className="mt-7">
+        <TableContainer>
+          <Table aria-label="simple table">
+            <TableHead>
+              <StyledTableRow>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Firstname
+                </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Lastname
+                </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Email
+                </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Department
+                </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Designation
+                </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Role
+                </StyledTableCell>
+                <StyledTableCell className="font-bold text-md uppercase">
+                  Actions
+                </StyledTableCell>
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {users &&
+                users.map((user) => (
+                  <StyledTableRow
+                    key={user.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     className="font-bold text-md"
                   >
-                    {user.firstname}
-                  </StyledTableCell>
-                  <StyledTableCell className="font-bold text-md">
-                    {user.lastname}
-                  </StyledTableCell>
-                  <StyledTableCell className="font-bold text-md">
-                    {user.email}
-                  </StyledTableCell>
-              
-                  <StyledTableCell className="font-bold text-md text-center">
-                    {user.department}
-                  </StyledTableCell>                     
-                 
-                  <StyledTableCell className="font-bold text-md text-center">
-                    {user.designation}
-                  </StyledTableCell>                    
-                 
-                  <StyledTableCell className="font-bold text-md text-center">
-                    {user.role}
-                  </StyledTableCell>
-                  <StyledTableCell className="font-bold text-md">
-                    <Button.Group className="gap-1">
-                      <Tooltip title="View user Details" placement="top" arrow className="cursor-pointer" onClick={() => handleViewButton(user.id)}>
-                        <IconEye size="1.5rem" color="white" className="bg-amber-600 rounded"/>
-                      </Tooltip>
-                      <Tooltip title="Edit user Details" placement="top" arrow className="cursor-pointer" onClick={() => handleEdit(user.id)} >
-                        <IconEdit size="1.5rem" color="white" className="bg-blue-600 rounded"/>
-                      </Tooltip>
-                    </Button.Group>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-  </>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      className="font-bold text-md"
+                    >
+                      {user.firstname}
+                    </StyledTableCell>
+                    <StyledTableCell className="font-bold text-md">
+                      {user.lastname}
+                    </StyledTableCell>
+                    <StyledTableCell className="font-bold text-md">
+                      {user.email}
+                    </StyledTableCell>
+
+                    <StyledTableCell className="font-bold text-md text-center">
+                      {user.department}
+                    </StyledTableCell>
+
+                    <StyledTableCell className="font-bold text-md text-center">
+                      {user.designation}
+                    </StyledTableCell>
+
+                    <StyledTableCell className="font-bold text-md text-center">
+                      {user.role}
+                    </StyledTableCell>
+                    <StyledTableCell className="font-bold text-md">
+                      <Button.Group className="gap-1">
+                        <Tooltip
+                          title="View user Details"
+                          placement="top"
+                          arrow
+                          className="cursor-pointer"
+                          onClick={() => handleViewButton(user.id)}
+                        >
+                          <IconEye
+                            size="1.5rem"
+                            color="white"
+                            className="bg-amber-600 rounded"
+                          />
+                        </Tooltip>
+                        <Tooltip
+                          title="Edit user Details"
+                          placement="top"
+                          arrow
+                          className="cursor-pointer"
+                          onClick={() => handleEdit(user.id)}
+                        >
+                          <IconEdit
+                            size="1.5rem"
+                            color="white"
+                            className="bg-blue-600 rounded"
+                          />
+                        </Tooltip>
+                      </Button.Group>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </>
     // <>
     //   <section className="w-full p-6 mx-auto bg-indigo-300 rounded-md shadow-md dark:bg-gray-800">
     //     <form className="ml-4 mt-5">

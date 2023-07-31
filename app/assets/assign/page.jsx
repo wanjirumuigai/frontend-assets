@@ -34,7 +34,7 @@ const AssignAsset = () => {
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:3000/assets");
+      const res = await fetch("http://localhost:4000/assets");
       const data = await res.json();
       setAssets(data);
     };
