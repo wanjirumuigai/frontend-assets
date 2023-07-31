@@ -11,10 +11,14 @@ import { styled } from "@mui/material/styles";
 import { Button } from "@mantine/core";
 import { IconEye, IconEdit, IconSearch } from "@tabler/icons-react";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import NewLicenseForm from "@/components/NewLicense";
+import { MdNoteAdd } from "react-icons/md";
 
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
+  const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -45,10 +49,22 @@ export default function LicensePage() {
     },
   }));
 
-
   return (
     <>
-      <h1 className="main-heading text-4xl font-bold">License Management</h1>
+      {/* New License Form */}
+      <Modal opened={opened} onClose={close} title="New License">
+        <NewLicenseForm />
+      </Modal>
+      {/* End of New License Form */}
+      <div>
+        <div className="flex justify-between">
+        <h1 className="main-heading text-4xl font-bold">License Management</h1>
+          <div className="title-and-number flex rounded bg-green-600 items-center p-1.5 cursor-pointer" onClick={open}>
+            <MdNoteAdd size={24} color="white"/>
+            <h1 className="text-2xl font-bold text-white">New License</h1>
+          </div>
+        </div>
+      </div>
       <Paper sx={{ width: "80%", overflow: "auto" }} className="mt-7">
         <TableContainer>
           <Table aria-label="simple table">
@@ -115,11 +131,29 @@ export default function LicensePage() {
                     </StyledTableCell>
                     <StyledTableCell className="font-bold text-md">
                       <Button.Group className="gap-1">
-                        <Tooltip title="View License Details" placement="top" arrow className="cursor-pointer">
-                          <IconEye size="1.5rem" color="white" className="bg-amber-600 rounded"/>
+                        <Tooltip
+                          title="View License Details"
+                          placement="top"
+                          arrow
+                          className="cursor-pointer"
+                        >
+                          <IconEye
+                            size="1.5rem"
+                            color="white"
+                            className="bg-amber-600 rounded"
+                          />
                         </Tooltip>
-                        <Tooltip title="Edit License Details" placement="top" arrow className="cursor-pointer" >
-                          <IconEdit size="1.5rem" color="white" className="bg-blue-600 rounded"/>
+                        <Tooltip
+                          title="Edit License Details"
+                          placement="top"
+                          arrow
+                          className="cursor-pointer"
+                        >
+                          <IconEdit
+                            size="1.5rem"
+                            color="white"
+                            className="bg-blue-600 rounded"
+                          />
                         </Tooltip>
                       </Button.Group>
                     </StyledTableCell>
