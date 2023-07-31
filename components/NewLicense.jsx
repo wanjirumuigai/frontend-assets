@@ -1,6 +1,13 @@
-export default function NewLicenseForm() {
+export default function NewLicenseForm({
+  formData,
+  handleChange,
+  handleSubmit,
+  today
+}) {
   return (
-    <form className="w-full max-w-sm">
+    <form
+      className="w-full max-w-sm"
+    >
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label
@@ -15,7 +22,9 @@ export default function NewLicenseForm() {
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             id="inline-license-name"
             type="text"
-            value="Avast Antivirus"
+            name="license_name"
+            value={formData.license_name}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -34,6 +43,10 @@ export default function NewLicenseForm() {
             id="inline-purchase-date"
             type="date"
             placeholder="YYYY-MM-DD"
+            name="purchase_date"
+            value={formData.purchase_date}
+            onChange={handleChange}
+            max={today}
           />
         </div>
       </div>
@@ -52,6 +65,10 @@ export default function NewLicenseForm() {
             id="inline-expiry-date"
             type="date"
             placeholder="YYYY-MM-DD"
+            name="expiry_date"
+            value={formData.expiry_date}
+            onChange={handleChange}
+            min={today}
           />
         </div>
       </div>
@@ -69,7 +86,10 @@ export default function NewLicenseForm() {
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             id="inline-users"
             type="number"
+            name="number_of_users"
             min={1}
+            value={formData.number_of_users}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -78,7 +98,8 @@ export default function NewLicenseForm() {
         <div className="md:w-2/3">
           <button
             className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
+            type="submit"
+            onClick={handleSubmit}
           >
             Create License
           </button>

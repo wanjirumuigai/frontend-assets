@@ -49,11 +49,46 @@ export default function LicensePage() {
     },
   }));
 
+  // Handle the new license details
+  const [licenseForm, setLicenseForm] = useState({
+    license_name: "",
+    purchase_date: "",
+    expiry_date: "",
+    number_of_users: "",
+  });
+
+  function handleChange(e) {
+    setLicenseForm({
+      ...licenseForm,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function onSubmitForm (e){
+    // e.preventDefault()
+    fetch("http://localhost:4000/licenses", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(licenseForm),
+    }).catch((e) => console.log(e));
+
+    setLicenseForm({
+      license_name: "",
+      purchase_date: "",
+      expiry_date: "",
+      number_of_users: "",
+    });
+  };
+
+  const today = new Date().toISOString().split('T')[0]
+
   return (
     <>
       {/* New License Form */}
       <Modal opened={opened} onClose={close} title="New License">
-        <NewLicenseForm />
+        <NewLicenseForm formData={licenseForm} handleChange={handleChange} handleSubmit={onSubmitForm} today={today}/>
       </Modal>
       {/* End of New License Form */}
       <div>
