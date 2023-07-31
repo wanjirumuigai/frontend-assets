@@ -54,7 +54,7 @@ export default function LicensePage() {
     license_name: "",
     purchase_date: "",
     expiry_date: "",
-    number_of_users: "",
+    number_of_users: 1,
   });
 
   function handleChange(e) {
@@ -78,7 +78,7 @@ export default function LicensePage() {
       license_name: "",
       purchase_date: "",
       expiry_date: "",
-      number_of_users: "",
+      number_of_users: 1,
     });
   };
 
