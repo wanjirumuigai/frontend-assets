@@ -68,7 +68,7 @@ export default function NewLicenseForm({
             name="expiry_date"
             value={formData.expiry_date}
             onChange={handleChange}
-            min={today}
+            min={formData.purchase_date}
           />
         </div>
       </div>
