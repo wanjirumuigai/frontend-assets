@@ -5,13 +5,13 @@ import { useState } from "react";
 
 function AddAsset() {
   const [formData, setFormData] = useState({
-    assetName: "",
+    asset_name: "",
     model: "",
-    tag: "",
-    serialNumber: "",
+    asset_tag: "",
+    serial_no: "",
     category: "",
     status: "",
-    purchasePrice: "",
+    purchase_price: "",
   });
   const [checked, setChecked] = useState(false);
 
@@ -32,13 +32,13 @@ function AddAsset() {
     }).catch((e) => console.log(e));
 
     setFormData({
-      assetName: "",
+      asset_name: "",
       model: "",
-      tag: "",
-      serialNumber: "",
+      asset_tag: "",
+      serial_no: "",
       category: "",
       status: "",
-      purchasePrice: "",
+      purchase_price: "",
     });
   };
 
@@ -66,8 +66,8 @@ function AddAsset() {
               </label>
               <input
                 type="text"
-                value={formData.assetName}
-                name="assetName"
+                value={formData.asset_name}
+                name="asset_name"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -89,8 +89,8 @@ function AddAsset() {
               <label className="text-white dark:text-gray-200">Asset Tag</label>
               <input
                 type="text"
-                name="tag"
-                value={formData.tag}
+                name="asset_tag"
+                value={formData.asset_tag}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -101,8 +101,8 @@ function AddAsset() {
                 Serial Number
               </label>
               <input
-                name="serialNumber"
-                value={formData.serialNumber}
+                name="serial_no"
+                value={formData.serial_no}
                 type="text"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -153,8 +153,8 @@ function AddAsset() {
               </label>
               <input
                 type="number"
-                name="purchasePrice"
-                value={formData.purchasePrice}
+                name="purchase_price"
+                value={formData.purchase_price}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
