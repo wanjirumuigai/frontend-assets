@@ -6,19 +6,19 @@ import Link from "next/link";
 const EditPage = ({ params }) => {
   const [asset, setAsset] = useState([]);
   const [formData, setFormData] = useState({
-    assetName: asset.assetName,
+    asset_name: asset.asset_name,
     model: asset.model,
-    tag: asset.tag,
-    serialNumber: asset.serialNumber,
+    asset_tag: asset.asset_tag,
+    serial_no: asset.serial_no,
     category: asset.category,
     status: asset.status,
-    purchasePrice: asset.purchasePrice,
+    purchase_price: asset.purchase_price,
   });
   const { assetId } = params;
   const router = useRouter();
   useEffect(() => {
     const fetchAsset = async () => {
-      const res = await fetch(`http://localhost:3000/assets/${assetId}`);
+      const res = await fetch(`http://localhost:4000/assets/${assetId}`);
       const data = await res.json();
       setAsset(data);
       setFormData(data);
@@ -37,7 +37,7 @@ const EditPage = ({ params }) => {
     <div>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
-          {asset.assetName + ": " + asset.model}
+          {asset.asset_name + ": " + asset.model}
         </h1>
         <form>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -48,8 +48,8 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                value={formData.assetName}
-                name="assetName"
+                value={formData.asset_name}
+                name="asset_name"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -70,8 +70,8 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                name="tag"
-                value={formData.tag}
+                name="asset_tag"
+                value={formData.asset_tag}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -82,8 +82,8 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serialNumber"
-                value={formData.serialNumber}
+                name="serial_no"
+                value={formData.serial_no}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -93,7 +93,7 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                name="tag"
+                name="asset_tag"
                 value={formData.category}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -125,7 +125,7 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                name="tag"
+                name="asset_tag"
                 value=""
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -137,7 +137,7 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serialNumber"
+                name="serial_no"
                 value=""
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -149,7 +149,7 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serialNumber"
+                name="serial_no"
                 value=""
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -161,7 +161,7 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serialNumber"
+                name="serial_no"
                 value=""
                 type="date"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -173,7 +173,7 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serialNumber"
+                name="serial_no"
                 value=""
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -187,8 +187,8 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="number"
-                name="purchasePrice"
-                value={formData.purchasePrice}
+                name="purchase_price"
+                value={formData.purchase_price}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>

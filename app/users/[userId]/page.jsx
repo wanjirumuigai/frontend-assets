@@ -17,8 +17,8 @@ const ths = (
 const elements= [
   {name: "Mouse",
   model: "HP",
-  tag: "KISE/ICT/3536",
-  serialNumber: "36TDSJ",
+  asset_tag: "KISE/ICT/3536",
+  serial_no: "36TDSJ",
 }
 ]
 
@@ -26,8 +26,8 @@ const rows = elements.map((element) => (
   <tr key={element.id}>
      <td>{element.name}</td>
     <td>{element.model}</td>
-    <td>{element.tag}</td>
-    <td>{element.serialNumber}</td>
+    <td>{element.asset_tag}</td>
+    <td>{element.serial_no}</td>
     
   </tr>
 ));
@@ -133,20 +133,14 @@ const ViewPage = ({ params }) => {
             </div>
             <div>
               <label className="text-white dark:text-gray-200">
-                Select Role
+                Role
               </label>
-              <select
-                
-                name="role"
-                value={formData.role}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                required
-              >
-                <option defaultValue={true}>Select Category</option>
-                <option>Admin</option>
-                <option>User</option>
-               
-              </select>
+              <input 
+              name="role"
+              type="text"
+              value={formData.role}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
             </div>
             </div>
             {/* List of Assigned Assets */}
