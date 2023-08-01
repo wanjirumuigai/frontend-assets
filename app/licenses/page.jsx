@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,14 +12,10 @@ import { styled } from "@mui/material/styles";
 import { Button } from "@mantine/core";
 import { IconEye, IconEdit, IconSearch } from "@tabler/icons-react";
 import Tooltip from "@mui/material/Tooltip";
-import { useDisclosure } from "@mantine/hooks";
-import { Modal } from "@mantine/core";
-import NewLicenseForm from "@/components/NewLicense";
 import { MdNoteAdd } from "react-icons/md";
 
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
-  const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -49,55 +46,19 @@ export default function LicensePage() {
     },
   }));
 
-  // Handle the new license details
-  const [licenseForm, setLicenseForm] = useState({
-    license_name: "",
-    purchase_date: "",
-    expiry_date: "",
-    number_of_users: 1,
-  });
-
-  function handleChange(e) {
-    setLicenseForm({
-      ...licenseForm,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function onSubmitForm (e){
-    // e.preventDefault()
-    fetch("http://localhost:4000/licenses", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(licenseForm),
-    }).catch((e) => console.log(e));
-
-    setLicenseForm({
-      license_name: "",
-      purchase_date: "",
-      expiry_date: "",
-      number_of_users: 1,
-    });
-  };
-
-  const today = new Date().toISOString().split('T')[0]
-
   return (
     <>
-      {/* New License Form */}
-      <Modal opened={opened} onClose={close} title="New License">
-        <NewLicenseForm formData={licenseForm} handleChange={handleChange} handleSubmit={onSubmitForm} today={today}/>
-      </Modal>
-      {/* End of New License Form */}
       <div>
         <div className="flex justify-between">
-        <h1 className="main-heading text-4xl font-bold">License Management</h1>
-          <div className="title-and-number flex rounded bg-green-600 items-center p-1.5 cursor-pointer" onClick={open}>
-            <MdNoteAdd size={24} color="white"/>
-            <h1 className="text-2xl font-bold text-white">New License</h1>
-          </div>
+          <h1 className="main-heading text-4xl font-bold">
+            License Management
+          </h1>
+          <Link href={"/licenses/new"}>
+            <div className="title-and-number flex rounded bg-green-600 items-center p-1.5 cursor-pointer">
+              <MdNoteAdd size={24} color="white" />
+              <h1 className="text-2xl font-bold text-white">New License</h1>
+            </div>
+          </Link>
         </div>
       </div>
       <Paper sx={{ width: "80%", overflow: "auto" }} className="mt-7">
