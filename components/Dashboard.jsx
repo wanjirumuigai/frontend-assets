@@ -4,6 +4,7 @@ import { ImBin } from "react-icons/im";
 import { GiAutoRepair } from "react-icons/gi";
 import { TbLicense, TbLicenseOff } from "react-icons/tb";
 import { useEffect, useState } from "react";
+import { Loader } from "@mantine/core";
 
 export default function DashBoard() {
   const [dashboard, setDashboard] = useState(null)
@@ -13,6 +14,10 @@ export default function DashBoard() {
     .then(res => res.json())
     .then(data => setDashboard(data))
   }, [])
+
+  if (!dashboard){
+    return <Loader size={48} color="red" className="mx-auto"/>
+  }
 
   return (
     <>
