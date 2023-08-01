@@ -1,7 +1,7 @@
 "use client";
 import { openSpotlight } from "@mantine/spotlight";
 import React, { useState, useEffect } from "react";
-import { Button, Group, Modal, Table } from "@mantine/core";
+import { Table } from "@mantine/core";
 import { SpotlightProvider, spotlight } from "@mantine/spotlight";
 
 import {
@@ -17,12 +17,24 @@ import { IconEye } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useDisclosure } from "@mantine/hooks";
 
+import { Modal, Button, Group } from "@mantine/core";
+import SearchUser from "@/components/SearchUser";
+import Fuse from "fuse.js";
+
+const options = {
+  includeScore: true,
+  keys: ["firstName", "lastName", "email"],
+};
+
 const AssignAsset = () => {
   const [assets, setAssets] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [assignedItem, setAssignedItems] = useState([]);
   const router = useRouter();
   const [opened, { open, close }] = useDisclosure(false);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("Add user");
+  const fuse = new Fuse(users, options);
   const ths = (
     <tr>
       <th>Asset Name</th>
@@ -91,6 +103,31 @@ const AssignAsset = () => {
   function handleSubmit() {
     console.log("submitted");
   }
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch("http://localhost:4000/users");
+      const data = await res.json();
+      setUsers(data);
+    };
+
+    fetchUsers();
+  }, []);
+
+  function handleUserSearch(e) {
+    const foundUsers = fuse
+      .search(e.target.value)
+      .map((element) => element.item);
+
+    if (foundUsers.length === 0) {
+      setUsers(users);
+    } else {
+      setUsers(foundUsers);
+    }
+  }
+
+  function getUser(obj) {
+    setSelectedUser(obj[0].firstname + " " + obj[0].lastname);
+  }
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
@@ -109,23 +146,20 @@ const AssignAsset = () => {
         }}
       >
         <div>
-          <label className="text-white dark:text-gray-200">Select Staff</label>
+          <label className="text-white dark:text-gray-200">Select User</label>
           <select
-            name="status"
+            value={selectedUser}
+            name=""
+            onClick={open}
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           >
-            <option defaultValue={true}>Select Staff</option>
-            <option>Mary Moraa</option>
-            <option>John Kamau</option>
-            <option>Damaris Mueni</option>
-            <option>Caroline Njeru</option>
-            <option>Wayua Muli</option>
+            <option>{selectedUser}</option>
           </select>
         </div>
         <div>
           <label className="text-white dark:text-gray-200">Add Assets</label>
           <select
-            name="status"
+            name=""
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             onClick={spotlight.open}
           >
@@ -161,6 +195,7 @@ const AssignAsset = () => {
         shortcut="mod + shift + 1"
         nothingFoundMessage="Nothing found..."
       ></SpotlightProvider>
+      <SearchUser open={open} opened={opened} close={close} getUser={getUser} />
     </section>
   );
 };
