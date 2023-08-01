@@ -34,6 +34,12 @@ const AssignAsset = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("Add user");
+  const [userId, setUserId] = useState(0)
+  const [assignee, setAssignee] = useState({})
+  const [location, setLocation] = useState('')
+  const [errors, setErrors] = useState([])
+
+  
   const fuse = new Fuse(users, options);
   const ths = (
     <tr>
@@ -54,30 +60,46 @@ const AssignAsset = () => {
     fetchAssets();
   }, []);
 
+  const [assetsId, setAssetsID] = useState([])
+
   function handleAddAsset(asset) {
     setSearchItems([...searchItems, asset]);
+    setAssetsID([...assetsId, asset.id])
+    setFormData({
+      user_id: assignee.id,
+      department: assignee.department,
+      asset_id: asset.id,
+      location: location,
+      assigned_by: "Pauline"
+    })
+
+   
+
   }
+ 
   function handleDelete(id) {
     const afterDeletion = searchItems.filter((item) => item.id != id);
     setSearchItems(afterDeletion);
+    setAssetsID(afterDeletion.map((item) => item.id))
   }
+ 
 
   function handleView(id) {
     router.push(`/view/${id}`);
   }
-
+ 
   const actions = assets.map((asset) => ({
-    title: asset.assetName + " " + asset.model,
-    description: "Tag: " + asset.tag + " " + "Serial: " + asset.serialNumber,
+    title: asset.asset_name + " " + asset.model,
+    description: "Tag: " + asset.asset_tag + " " + "Serial: " + asset.serial_no,
     onTrigger: () => handleAddAsset(asset),
     icon: <IconDeviceDesktop size="1.2rem" />,
   }));
   const rows = searchItems.map((element) => (
     <tr key={element.id}>
-      <td>{element.assetName}</td>
+      <td>{element.asset_name}</td>
       <td>{element.model}</td>
-      <td>{element.tag}</td>
-      <td>{element.serialNumber}</td>
+      <td>{element.asset_tag}</td>
+      <td>{element.serial_no}</td>
 
       <td>
         <Button
@@ -101,33 +123,53 @@ const AssignAsset = () => {
   ));
 
   function handleSubmit() {
-    console.log("submitted");
+    
+    fetch('http://localhost:4000/assigns', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then(() => {
+          setFormData({
+            user_id: "",
+    department: "",
+    asset_id: "",
+    location: "",
+    assigned_by: ""
+          });
+
+        })
+      } else {
+        res.json().then((err) => setErrors(err.errors))        
+      }
+    })
   }
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await fetch("http://localhost:4000/users");
-      const data = await res.json();
-      setUsers(data);
-    };
-
-    fetchUsers();
-  }, []);
-
-  function handleUserSearch(e) {
-    const foundUsers = fuse
-      .search(e.target.value)
-      .map((element) => element.item);
-
-    if (foundUsers.length === 0) {
-      setUsers(users);
-    } else {
-      setUsers(foundUsers);
-    }
-  }
-
+ 
   function getUser(obj) {
     setSelectedUser(obj[0].firstname + " " + obj[0].lastname);
+    setUserId(obj[0].id)
+    setAssignee(obj[0])
+
   }
+
+  const [formData, setFormData] = useState({
+    user_id: "",
+    department: "",
+    asset_id: "",
+    location: "",
+    assigned_by: ""
+  })
+
+  function handleChange(e){
+ 
+    setLocation(e.target.value)
+  }
+
+
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
@@ -145,6 +187,7 @@ const AssignAsset = () => {
           handleSubmit();
         }}
       >
+        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
         <div>
           <label className="text-white dark:text-gray-200">Select User</label>
           <select
@@ -156,6 +199,20 @@ const AssignAsset = () => {
             <option>{selectedUser}</option>
           </select>
         </div>
+        
+        <div>
+              <label className="text-white dark:text-gray-200">
+               Location
+              </label>
+              <input
+                name="location"
+                value={location}
+                type="text"
+                onChange={handleChange}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />              
+            </div>
+            </div>
         <div>
           <label className="text-white dark:text-gray-200">Add Assets</label>
           <select
@@ -166,6 +223,7 @@ const AssignAsset = () => {
             <option defaultValue={true}>Add Assets</option>
           </select>
         </div>
+       
 
         <div className=" bg-slate-300 mt-6 ">
           <div>
