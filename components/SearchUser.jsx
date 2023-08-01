@@ -15,6 +15,8 @@ function SearchUser({ open, opened, close, getUser }) {
   const [users, setUsers] = useState([]);
   const fuse = new Fuse(users, options);
   const [closeModal, setCloseModal] = useState(opened);
+  const [searchCriteria, setSearchCriteria] = useState('')
+  const [searchItems, setSearchItems] = useState([])
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,15 +28,19 @@ function SearchUser({ open, opened, close, getUser }) {
     fetchUsers();
   }, []);
   function handleUserSearch(e) {
+    setSearchCriteria(e.target.value)
     const foundUsers = fuse
-      .search(e.target.value)
+      .search(searchCriteria)
       .map((element) => element.item);
 
-    if (foundUsers.length === 0) {
-      setUsers(users);
-    } else {
-      setUsers(foundUsers);
-    }
+   if (searchCriteria.length === 0) {
+    setSearchItems([])
+
+   } else {
+    setSearchItems(foundUsers);
+
+   }
+       
   }
   function handleChooseUser(id) {
     const returnedUser = users.filter((user) => {
@@ -50,10 +56,10 @@ function SearchUser({ open, opened, close, getUser }) {
       <Modal opened={opened} onClose={close}>
         <input
           placeholder="Search users ..."
-          onKeyUp={handleUserSearch}
+          onKeyDown={handleUserSearch}
           className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
         />
-        {users.map((user) => {
+        {searchItems.map((user) => {
           return (
             <option
               onClick={() => {
