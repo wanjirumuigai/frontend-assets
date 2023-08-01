@@ -3,8 +3,17 @@ import { FaBarcode, FaUserPlus, FaComputer, FaUsers } from "react-icons/fa6";
 import { ImBin } from "react-icons/im";
 import { GiAutoRepair } from "react-icons/gi";
 import { TbLicense, TbLicenseOff } from "react-icons/tb";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function DashBoard() {
+  const [dashboard, setDashboard] = useState(null)
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:4000/dashboard")
+    .then(res => res.json())
+    .then(data => setDashboard(data))
+  }, [])
+
   return (
     <>
       <h1 className="main-heading text-4xl font-bold">Dashboard</h1>
@@ -12,28 +21,28 @@ export default function Home() {
         {/* Top row */}
         <DataCard
           title={"Active Assets"}
-          number={233}
+          number={dashboard.active_assets}
           icon={FaBarcode}
           cardColor="bg-rose-600"
           link={"/assets"}
         />
         <DataCard
           title={"Allocated Assets"}
-          number={200}
+          number={dashboard.allocated_assets}
           icon={FaUserPlus}
           cardColor={"bg-lime-600"}
           link={"/assets"}
         />
         <DataCard
           title={"Users"}
-          number={168}
+          number={dashboard.users}
           icon={FaUsers}
           cardColor={"bg-amber-600"}
           link={"/users"}
         />
         <DataCard
           title={"Asset Categories"}
-          number={6}
+          number={dashboard.asset_categories}
           icon={FaComputer}
           cardColor={"bg-sky-600"}
           link={"/assets"}
@@ -41,28 +50,28 @@ export default function Home() {
         {/* Bottom Row */}
         <DataCard
           title={"Assets Under Repair"}
-          number={2}
+          number={dashboard.under_repair}
           icon={GiAutoRepair}
           cardColor={"bg-green-600"}
           link={"/assets"}
         />
         <DataCard
           title={"Disposed Assets"}
-          number={0}
+          number={dashboard.disposed_assets}
           icon={ImBin}
           cardColor={"bg-orange-600"}
           link={"/assets"}
         />
         <DataCard
           title={"Licenses"}
-          number={9}
+          number={dashboard.licenses}
           icon={TbLicense}
           cardColor={"bg-purple-600"}
           link={"/licenses"}
         />
         <DataCard
           title={"Expired Licenses"}
-          number={2}
+          number={dashboard.expired_licenses}
           icon={TbLicenseOff}
           cardColor={"bg-red-600"}
           link={"/licenses"}
