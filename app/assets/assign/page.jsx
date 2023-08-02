@@ -34,12 +34,19 @@ const AssignAsset = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("Add user");
+
+
+  // Receive id from the assets page
+  const id = router.query;
+  console.log(id);
+
   const [userId, setUserId] = useState(0)
   const [assignee, setAssignee] = useState({})
   const [location, setLocation] = useState('')
   const [errors, setErrors] = useState([])
   const [formData, setFormData] = useState([])
   
+
 
   
   const fuse = new Fuse(users, options);
@@ -87,7 +94,7 @@ const AssignAsset = () => {
  
 
   function handleView(id) {
-    router.push(`/view/${id}`);
+    router.push(`/assets/${id}`);
   }
  
   const actions = assets.map((asset) => ({

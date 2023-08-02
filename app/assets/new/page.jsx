@@ -14,6 +14,7 @@ function AddAsset() {
     purchase_price: "",
   });
   const [checked, setChecked] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   function handleChange(e) {
     setFormData({
@@ -25,22 +26,32 @@ function AddAsset() {
   const handleSubmit = () => {
     fetch("http://localhost:4000/assets", {
       method: "POST",
-      body: JSON.stringify(formData),
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-    }).catch((e) => console.log(e));
-
-    setFormData({
-      asset_name: "",
-      model: "",
-      asset_tag: "",
-      serial_no: "",
-      category: "",
-      status: "",
-      purchase_price: "",
-    });
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then(() => {
+          setFormData({
+            asset_name: "",
+            model: "",
+            asset_tag: "",
+            serial_no: "",
+            category: "",
+            status: "",
+            purchase_price: "",
+          });
+        })
+      } else {
+        res.json().then((err) => setErrors(err.errors))
+      }
+    })
   };
+  let displayErrs =Object.keys(errors).map(function(property) {
+    return errors[property]
+   });
 
   return (
     <>
@@ -140,11 +151,10 @@ function AddAsset() {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               >
                 <option defaultValue={true}>Select Status</option>
-                <option>Ready to Deploy</option>
-                <option>Broken</option>
-                <option>Out for Repair</option>
-                <option>Deployed</option>
-                <option>Obsolete</option>
+                <option value="working">Working</option>
+                <option value="damaged">Damaged</option>
+                <option value="in_repair">Out for Repair</option>
+                <option value="obsolete">Obsolete</option>
               </select>
             </div>
             <div>
@@ -167,14 +177,14 @@ function AddAsset() {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
             </div>
+            {displayErrs.length > 0 && (
+              <ul style={{ color: "red" }}>
+                {displayErrs.map((error) => (
+                  <li key={error}>{error}</li>
+                ))}
+              </ul>
+            )}
           </div>
-          {/* <div className="flex items-start mb-6">
-    <div className="flex items-center h-5">
-      <input  type="checkbox"  value={checked} name="forDisposal" onChange={(checked) => setChecked(!checked)}  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"/>
-    </div>
-    <label  className="ml-2 text-white dark:text-gray-200">Marked for Disposal?</label>
-  </div> */}
-
           <div className="flex justify-end mt-6">
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
               Save
