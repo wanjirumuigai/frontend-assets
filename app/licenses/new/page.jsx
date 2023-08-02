@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import NewLicenseForm from "@/components/NewLicenseForm";
 import { useState } from "react";
 
@@ -39,11 +39,13 @@ export default function NewLicense() {
   }
 
   return (
-    <NewLicenseForm
-      formData={licenseForm}
-      handleChange={handleChange}
-      handleSubmit={onSubmitForm}
-      today={today}
-    />
+    <div className="border-2 rounded-lg w-2/5 p-5 mx-auto mt-10 ">
+      <NewLicenseForm
+        formData={licenseForm}
+        handleChange={handleChange}
+        handleSubmit={onSubmitForm}
+        today={today}
+      />
+    </div>
   );
 }
