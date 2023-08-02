@@ -13,9 +13,13 @@ import { Button } from "@mantine/core";
 import { IconEye, IconEdit, IconSearch } from "@tabler/icons-react";
 import Tooltip from "@mui/material/Tooltip";
 import { MdNoteAdd } from "react-icons/md";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import NewLicenseForm from "@/components/NewLicenseForm";
 
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
+  const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -46,8 +50,56 @@ export default function LicensePage() {
     },
   }));
 
+  const today = new Date().toISOString().split("T")[0];
+
+  // Handle the new license details
+  const [licenseForm, setLicenseForm] = useState({
+    license_name: "",
+    purchase_date: "",
+    expiry_date: "",
+    number_of_users: 1,
+  });
+
+  function handleChange(e) {
+    setLicenseForm({
+      ...licenseForm,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function updateFormData(licenseData){
+    setLicenseForm(licenseData)
+  }
+
+  function onSubmitForm(e) {
+    e.preventDefault()
+    console.log(licenseForm)
+    // fetch("http://localhost:4000/licenses", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(licenseForm),
+    // }).catch((e) => console.log(e));
+
+    // setLicenseForm({
+    //   license_name: "",
+    //   purchase_date: "",
+    //   expiry_date: "",
+    //   number_of_users: 1,
+    // });
+  }
+
   return (
     <>
+      <Modal opened={opened} onClose={close} title="Update Licese">
+        <NewLicenseForm
+          formData={licenseForm}
+          handleChange={handleChange}
+          handleSubmit={onSubmitForm}
+          today={today}
+        />
+      </Modal>
       <div>
         <div className="flex justify-between">
           <h1 className="main-heading text-4xl font-bold">
@@ -144,6 +196,7 @@ export default function LicensePage() {
                           placement="top"
                           arrow
                           className="cursor-pointer"
+                          onClick={() => {open(); updateFormData(license)}}
                         >
                           <IconEdit
                             size="1.5rem"
