@@ -49,6 +49,7 @@ const EditPage = ({ params }) => {
                 Asset Name
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 value={formData.asset_name}
@@ -60,6 +61,7 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Model</label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 name="model"
@@ -71,6 +73,7 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Asset Tag</label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 name="asset_tag"
@@ -84,6 +87,7 @@ const EditPage = ({ params }) => {
                 Serial Number
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="serial_no"
                 value={formData.serial_no}
@@ -94,6 +98,7 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Category</label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 name="category"
@@ -107,24 +112,12 @@ const EditPage = ({ params }) => {
                 Status
               </label>
               <input
+              readOnly
               name="status"
               onChange={handleChange}
               value={formData.status}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
-              {/* <select
-                name="status"
-                onChange={handleChange}
-                value={formData.status}
-                defaultValue={formData.status}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              >
-                <option>Ready to Deploy</option>
-                <option>Broken</option>
-                <option>Out for Repair</option>
-                <option>Deployed</option>
-                <option>Obsolete</option>
-  </select>*/}
             </div> 
 
             <div>
@@ -132,10 +125,15 @@ const EditPage = ({ params }) => {
                 Assigned To
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
-                name="asset_tag"
-                // value={asset.users[0].firstname}
+                name="assigned_to"
+                value={!asset.users || asset.users.length === 0 ? (
+                  <div>loading...</div>)
+                  : (
+                    asset.users[0].firstname
+                  )}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -145,9 +143,14 @@ const EditPage = ({ params }) => {
                 Department
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="department"
-                // value={asset.users[0].department}
+                value={!asset.users || asset.users.length === 0 ? (
+                  <div>loading...</div>)
+                  : (
+                    asset.users[0].department
+                  )}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -157,9 +160,14 @@ const EditPage = ({ params }) => {
                 Assigned By
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="assigned_by"
-                value={asset.assigned_by}
+                value={!asset.assigns || asset.assigns.length === 0 ? (
+                  <div>loading...</div>)
+                  : (
+                    asset.assigns[0].assigned_by
+                  )}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -169,6 +177,7 @@ const EditPage = ({ params }) => {
                 Return Date
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="return_date"
                 value={asset.return_date}
@@ -181,6 +190,7 @@ const EditPage = ({ params }) => {
                 Received By
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="received_by"
                 value={asset.received_by}
@@ -194,6 +204,7 @@ const EditPage = ({ params }) => {
                 Purchase Price
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="number"
                 name="purchase_price"

@@ -56,11 +56,11 @@ export default function ShowAssets() {
   }
 
   function handleEdit() {
-    route.replace(`/assets/edit/${rowSelectionModel}`);
+    route.replace(`/edit/${rowSelectionModel}`);
   }
 
   function handleAssign() {
-    route.replace(`/assets/assign`);
+    
   }
 
   const fuse = new Fuse(assets, options);
@@ -86,10 +86,16 @@ export default function ShowAssets() {
 
       <button 
       className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
-      onClick={handleAssign}
       hidden={disableAssign}
-      >
-        Assign
+      // send id to assign page
+      ><Link
+      href={{
+        pathname: `/assets/assign`,
+        query: [rowSelectionModel],
+      }}
+    >  Assign
+    </Link>
+        
       </button>
       
       <DataGrid
@@ -108,7 +114,6 @@ export default function ShowAssets() {
         }}
         pageSizeOptions={[5, 10]}
       />
-      {console.log(rowSelectionModel.length)}
     </div>
   );
 }

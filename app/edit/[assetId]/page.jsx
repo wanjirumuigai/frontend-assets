@@ -93,7 +93,7 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                name="asset_tag"
+                name="category"
                 value={formData.category}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -125,8 +125,12 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 type="text"
-                name="asset_tag"
-                value=""
+                name="assigned_to"
+                value={!asset.users || asset.users.length === 0 ? (
+                  <div>loading...</div>)
+                  : (
+                    asset.users[0].firstname
+                  )}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -137,8 +141,12 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serial_no"
-                value=""
+                name="department"
+                value={!asset.users || asset.users.length === 0 ? (
+                  <div>loading...</div>)
+                  : (
+                    asset.users[0].department
+                  )}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -149,8 +157,12 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serial_no"
-                value=""
+                name="assigned_by"
+                value={!asset.assigns || asset.assigns.length === 0 ? (
+                  <div>loading...</div>)
+                  : (
+                    asset.assigns[0].assigned_by
+                  )}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -161,7 +173,7 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serial_no"
+                name="return_date"
                 value=""
                 type="date"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -173,7 +185,7 @@ const EditPage = ({ params }) => {
               </label>
               <input
                 onChange={handleChange}
-                name="serial_no"
+                name="received_by"
                 value=""
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
