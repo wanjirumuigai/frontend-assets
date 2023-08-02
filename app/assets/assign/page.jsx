@@ -34,14 +34,19 @@ const AssignAsset = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("Add user");
-  const [userId, setUserId] = useState(0);
-  const [assignee, setAssignee] = useState({});
-  const [location, setLocation] = useState('');
-  const [errors, setErrors] = useState([]);
+
 
   // Receive id from the assets page
   const id = router.query;
   console.log(id);
+
+  const [userId, setUserId] = useState(0)
+  const [assignee, setAssignee] = useState({})
+  const [location, setLocation] = useState('')
+  const [errors, setErrors] = useState([])
+  const [formData, setFormData] = useState([])
+  
+
 
   
   const fuse = new Fuse(users, options);
@@ -69,13 +74,13 @@ const AssignAsset = () => {
   function handleAddAsset(asset) {
     setSearchItems([...searchItems, asset]);
     setAssetsID([...assetsId, asset.id])
-    setFormData({
+    setFormData([...formData, {
       user_id: assignee.id,
       department: assignee.department,
       asset_id: asset.id,
       location: location,
       assigned_by: "Pauline"
-    })
+    }])
 
    
 
@@ -127,30 +132,31 @@ const AssignAsset = () => {
   ));
 
   function handleSubmit() {
+     console.log(formData)
     
-    fetch('http://localhost:4000/assigns', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then(() => {
-          setFormData({
-            user_id: "",
-    department: "",
-    asset_id: "",
-    location: "",
-    assigned_by: ""
-          });
+    // fetch('http://localhost:4000/assigns', {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify(formData),
+    // }).then((res) => {
+    //   if (res.ok) {
+    //     res.json().then(() => {
+    //       setFormData({
+    //         user_id: "",
+    // department: "",
+    // asset_id: "",
+    // location: "",
+    // assigned_by: ""
+    //       });
 
-        })
-      } else {
-        res.json().then((err) => setErrors(err.errors))        
-      }
-    })
+    //     })
+    //   } else {
+    //     res.json().then((err) => setErrors(err.errors))        
+    //   }
+    // })
   }
  
   function getUser(obj) {
@@ -160,13 +166,7 @@ const AssignAsset = () => {
 
   }
 
-  const [formData, setFormData] = useState({
-    user_id: "",
-    department: "",
-    asset_id: "",
-    location: "",
-    assigned_by: ""
-  })
+
 
   function handleChange(e){
  

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next -p 8000 & json-server --watch db.json",
+    "dev": "next -p 8000",
     "build": "next build",
     "start": "next start -p 3005",
     "lint": "next lint"
