@@ -1,9 +1,11 @@
 "use client";
 import NewLicenseForm from "@/components/NewLicenseForm";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NewLicense() {
   const today = new Date().toISOString().split("T")[0];
+  const router = useRouter()
 
   // Handle the new license details
   const [licenseForm, setLicenseForm] = useState({
@@ -21,14 +23,20 @@ export default function NewLicense() {
   }
 
   function onSubmitForm(e) {
-    // e.preventDefault()
+    e.preventDefault()
     fetch("http://localhost:4000/licenses", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(licenseForm),
-    }).catch((e) => console.log(e));
+    })
+    .then(res => {
+      if (res.ok){
+        router.push("/licenses")
+      }
+    })
+    .catch((e) => console.log(e));
 
     setLicenseForm({
       license_name: "",
