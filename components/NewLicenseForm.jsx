@@ -4,6 +4,7 @@ export default function NewLicenseForm({
   handleSubmit,
   today,
 }) {
+
   return (
     <form className="w-full max-w-sm mx-auto">
       <div className="md:flex md:items-center mb-6">
@@ -99,7 +100,7 @@ export default function NewLicenseForm({
             type="submit"
             onClick={handleSubmit}
           >
-            Create License
+            Save License
           </button>
         </div>
       </div>
