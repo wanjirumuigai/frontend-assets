@@ -35,20 +35,16 @@ const AssignAsset = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("Add user");
 
-
   // Receive id from the assets page
   const id = router.query;
   console.log(id);
 
-  const [userId, setUserId] = useState(0)
-  const [assignee, setAssignee] = useState({})
-  const [location, setLocation] = useState('')
-  const [errors, setErrors] = useState([])
-  const [formData, setFormData] = useState([])
-  
+  const [userId, setUserId] = useState(0);
+  const [assignee, setAssignee] = useState({});
+  const [location, setLocation] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [formData, setFormData] = useState([]);
 
-
-  
   const fuse = new Fuse(users, options);
   const ths = (
     <tr>
@@ -69,34 +65,33 @@ const AssignAsset = () => {
     fetchAssets();
   }, []);
 
-  const [assetsId, setAssetsID] = useState([])
+  const [assetsId, setAssetsID] = useState([]);
 
   function handleAddAsset(asset) {
     setSearchItems([...searchItems, asset]);
-    setAssetsID([...assetsId, asset.id])
-    setFormData([...formData, {
-      user_id: assignee.id,
-      department: assignee.department,
-      asset_id: asset.id,
-      location: location,
-      assigned_by: "Pauline"
-    }])
-
-   
-
+    setAssetsID([...assetsId, asset.id]);
+    setFormData([
+      ...formData,
+      {
+        user_id: assignee.id,
+        department: assignee.department,
+        asset_id: asset.id,
+        location: location,
+        assigned_by: "Pauline",
+      },
+    ]);
   }
- 
+
   function handleDelete(id) {
     const afterDeletion = searchItems.filter((item) => item.id != id);
     setSearchItems(afterDeletion);
-    setAssetsID(afterDeletion.map((item) => item.id))
+    setAssetsID(afterDeletion.map((item) => item.id));
   }
- 
 
   function handleView(id) {
     router.push(`/assets/${id}`);
   }
- 
+
   const actions = assets.map((asset) => ({
     title: asset.asset_name + " " + asset.model,
     description: "Tag: " + asset.asset_tag + " " + "Serial: " + asset.serial_no,
@@ -132,48 +127,39 @@ const AssignAsset = () => {
   ));
 
   function handleSubmit() {
-     console.log(formData)
-    
-    // fetch('http://localhost:4000/assigns', {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    //   body: JSON.stringify(formData),
-    // }).then((res) => {
-    //   if (res.ok) {
-    //     res.json().then(() => {
-    //       setFormData({
-    //         user_id: "",
-    // department: "",
-    // asset_id: "",
-    // location: "",
-    // assigned_by: ""
-    //       });
-
-    //     })
-    //   } else {
-    //     res.json().then((err) => setErrors(err.errors))        
-    //   }
-    // })
+    fetch("http://localhost:4000/assigns", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ _json: formData }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then(() => {
+          setFormData({
+            user_id: "",
+            department: "",
+            asset_id: "",
+            location: "",
+            assigned_by: "",
+          });
+        });
+      } else {
+        res.json().then((err) => setErrors(err.errors));
+      }
+    });
   }
- 
+
   function getUser(obj) {
     setSelectedUser(obj[0].firstname + " " + obj[0].lastname);
-    setUserId(obj[0].id)
-    setAssignee(obj[0])
-
+    setUserId(obj[0].id);
+    setAssignee(obj[0]);
   }
 
-
-
-  function handleChange(e){
- 
-    setLocation(e.target.value)
+  function handleChange(e) {
+    setLocation(e.target.value);
   }
-
-
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
@@ -192,31 +178,29 @@ const AssignAsset = () => {
         }}
       >
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div>
-          <label className="text-white dark:text-gray-200">Select User</label>
-          <select
-            value={selectedUser}
-            name=""
-            onClick={open}
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-          >
-            <option>{selectedUser}</option>
-          </select>
+          <div>
+            <label className="text-white dark:text-gray-200">Select User</label>
+            <select
+              value={selectedUser}
+              name=""
+              onClick={open}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            >
+              <option>{selectedUser}</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-white dark:text-gray-200">Location</label>
+            <input
+              name="location"
+              value={location}
+              type="text"
+              onChange={handleChange}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
         </div>
-        
-        <div>
-              <label className="text-white dark:text-gray-200">
-               Location
-              </label>
-              <input
-                name="location"
-                value={location}
-                type="text"
-                onChange={handleChange}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />              
-            </div>
-            </div>
         <div>
           <label className="text-white dark:text-gray-200">Add Assets</label>
           <select
@@ -227,7 +211,6 @@ const AssignAsset = () => {
             <option defaultValue={true}>Add Assets</option>
           </select>
         </div>
-       
 
         <div className=" bg-slate-300 mt-6 ">
           <div>
