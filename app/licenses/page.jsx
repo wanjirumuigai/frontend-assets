@@ -13,11 +13,15 @@ import { Button } from "@mantine/core";
 import { IconEye, IconEdit, IconSearch } from "@tabler/icons-react";
 import Tooltip from "@mui/material/Tooltip";
 import { MdNoteAdd } from "react-icons/md";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import NewLicenseForm from "@/components/NewLicenseForm";
 
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
+  const [opened, { open, close }] = useDisclosure(false);
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchLicenses = async () => {
       const response = await fetch("http://127.0.0.1:4000/licenses");
       const data = await response.json();
@@ -46,8 +50,65 @@ export default function LicensePage() {
     },
   }));
 
+  const today = new Date().toISOString().split("T")[0];
+
+  // Handle the new license details
+  const [updateLicense, setUpdateLicense] = useState({
+    license_name: "",
+    purchase_date: "",
+    expiry_date: "",
+    number_of_users: 1,
+  });
+
+  function handleChange(e) {
+    setUpdateLicense({
+      ...updateLicense,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function updateFormData(licenseData) {
+    setUpdateLicense(licenseData);
+  }
+
+  function onSubmitForm(e) {
+    // e.preventDefault();
+    fetch(`http://localhost:4000/licenses/${updateLicense.id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateLicense),
+    })
+      .then((res) => res.json())
+      .then((data) =>
+        setLicenses(
+          licenses.filter((license) =>
+            license.id === data.id ? data : license
+          )
+        )
+      )
+      .catch((e) => console.log(e));
+
+    setUpdateLicense({
+      license_name: "",
+      purchase_date: "",
+      expiry_date: "",
+      number_of_users: 1,
+    });
+    close();
+  }
+
   return (
     <>
+      <Modal opened={opened} onClose={close} title="Update Licese">
+        <NewLicenseForm
+          formData={updateLicense}
+          handleChange={handleChange}
+          handleSubmit={onSubmitForm}
+          today={today}
+        />
+      </Modal>
       <div>
         <div className="flex justify-between">
           <h1 className="main-heading text-4xl font-bold">
@@ -144,6 +205,10 @@ export default function LicensePage() {
                           placement="top"
                           arrow
                           className="cursor-pointer"
+                          onClick={() => {
+                            open();
+                            updateFormData(license);
+                          }}
                         >
                           <IconEdit
                             size="1.5rem"
