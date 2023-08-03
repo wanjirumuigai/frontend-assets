@@ -21,7 +21,7 @@ export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
   const [opened, { open, close }] = useDisclosure(false);
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchLicenses = async () => {
       const response = await fetch("http://127.0.0.1:4000/licenses");
       const data = await response.json();
@@ -72,7 +72,7 @@ export default function LicensePage() {
   }
 
   function onSubmitForm(e) {
-    e.preventDefault();
+    // e.preventDefault();
     fetch(`http://localhost:4000/licenses/${updateLicense.id}`, {
       method: "PATCH",
       headers: {
