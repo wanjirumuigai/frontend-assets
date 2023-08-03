@@ -70,30 +70,30 @@ export default function ShowAssets() {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <button 
-      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
+      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
         onClick={handleEdit}
-        hidden={disableView}
+        disabled={disableView}
         >
         Edit
         </button>
       <button 
-      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
+      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
       onClick={handleView}
-      hidden={disableView}
+      disabled={disableView}
       >
         View
       </button>
 
       <button 
-      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
-      hidden={disableAssign}
+      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+      disabled={disableAssign}
       // send id to assign page
       ><Link
       href={{
         pathname: `/assets/assign`,
         query: [rowSelectionModel],
       }}
-    >  Assign
+    >  Assign{disableAssign}
     </Link>
         
       </button>

@@ -35,7 +35,7 @@ const EditPage = ({ params }) => {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-
+console.log(asset);
   return (
     <div>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-2">
