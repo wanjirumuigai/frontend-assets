@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Table } from "@mantine/core";
+import { IconEye } from "@tabler/icons-react";
 
 
 const ths = (
@@ -11,6 +12,7 @@ const ths = (
     <th>MODEL</th>
     <th>TAG</th>
     <th>SERIAL NO.</th>
+    <th>Action</th>
   </tr>
 );
 
@@ -34,6 +36,8 @@ const rows = elements.map((element) => (
 
 const ViewPage = ({ params }) => {
   const [user, setUser] = useState([]);
+  const [assetIds, setAssetIds] = useState([]);
+  const [assets, setAssets] = useState([]);
   const [formData, setFormData] = useState({
     firstname: user.firstname,
     lastname: user.lastname,
@@ -41,6 +45,8 @@ const ViewPage = ({ params }) => {
     department: user.department,
     designation: user.designation
   });
+  
+  
   const { userId } = params;
   const router = useRouter();
   useEffect(() => {
@@ -51,7 +57,27 @@ const ViewPage = ({ params }) => {
       setFormData(data);
     };
     fetchUser();
+    return () => setAssetIds([]);
   }, [userId]);
+  
+  useEffect(() => {
+    if (user.assigns) {
+      const asset_ids = user.assigns.map(assign => assign.asset_id);
+      setAssetIds(asset_ids);
+      }
+  }, [user]);
+
+  useEffect(() => {
+    const fetchAssets = async () => {
+      const res = await fetch("http://localhost:4000/assets");
+      const data = await res.json();
+      setAssets(data);
+    };
+
+    fetchAssets();
+  }, []);
+
+  const userAssets = assets.filter(asset => assetIds.includes(asset.id));
 
   function handleCancel() {
     router.push("/users");
@@ -148,7 +174,21 @@ const ViewPage = ({ params }) => {
             <Table className="text-slate-950">
       <caption className="mt-5">Assigned Assets </caption>
       <thead >{ths}</thead>
-      <tbody>{rows}</tbody>
+      <tbody>
+      {userAssets.map(asset => (
+        <tr key={asset.id}>
+        <td>{asset.asset_name}</td>
+        <td>{asset.model}</td>
+        <td>{asset.asset_tag}</td>
+        <td>{asset.serial_no}</td>
+        <td>{<Link href={`/assets/${asset.id}`}><IconEye
+                            size="1.5rem"
+                            color="white"
+                            className="bg-amber-600 rounded"
+                          /></Link>}</td>
+        </tr>
+      ))}
+      </tbody>
       
     </Table>
 

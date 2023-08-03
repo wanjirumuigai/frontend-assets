@@ -68,6 +68,7 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Asset Tag</label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 name="asset_tag"
@@ -81,6 +82,7 @@ const EditPage = ({ params }) => {
                 Serial Number
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="serial_no"
                 value={formData.serial_no}
@@ -91,6 +93,7 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Category</label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 name="category"
@@ -110,11 +113,11 @@ const EditPage = ({ params }) => {
                 defaultValue={formData.status}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               >
-                <option>Ready to Deploy</option>
-                <option>Broken</option>
-                <option>Out for Repair</option>
-                <option>Deployed</option>
-                <option>Obsolete</option>
+                <option defaultValue={true}>Select Status</option>
+                <option value="working">Working</option>
+                <option value="damaged">Damaged</option>
+                <option value="in_repair">Out for Repair</option>
+                <option value="obsolete">Obsolete</option>
               </select>
             </div>
 
@@ -123,6 +126,7 @@ const EditPage = ({ params }) => {
                 Assigned To
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="text"
                 name="assigned_to"
@@ -140,6 +144,7 @@ const EditPage = ({ params }) => {
                 Department
               </label>
               <input
+              readOnly
                 onChange={handleChange}
                 name="department"
                 value={!asset.users || asset.users.length === 0 ? (
@@ -156,6 +161,7 @@ const EditPage = ({ params }) => {
                 Assigned By
               </label>
               <input
+              readOnly
                 onChange={handleChange}
                 name="assigned_by"
                 value={!asset.assigns || asset.assigns.length === 0 ? (
@@ -172,6 +178,7 @@ const EditPage = ({ params }) => {
                 Return Date
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 name="return_date"
                 value=""
@@ -197,6 +204,7 @@ const EditPage = ({ params }) => {
                 Purchase Price
               </label>
               <input
+                readOnly
                 onChange={handleChange}
                 type="number"
                 name="purchase_price"
