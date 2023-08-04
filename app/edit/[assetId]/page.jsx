@@ -131,7 +131,7 @@ const EditPage = ({ params }) => {
                 type="text"
                 name="assigned_to"
                 value={!asset.users || asset.users.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.users[0].firstname
                   )}
@@ -148,7 +148,7 @@ const EditPage = ({ params }) => {
                 onChange={handleChange}
                 name="department"
                 value={!asset.users || asset.users.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.users[0].department
                   )}
@@ -165,7 +165,7 @@ const EditPage = ({ params }) => {
                 onChange={handleChange}
                 name="assigned_by"
                 value={!asset.assigns || asset.assigns.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.assigns[0].assigned_by
                   )}

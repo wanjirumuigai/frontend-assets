@@ -69,15 +69,16 @@ export default function ShowAssets() {
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
+      <div className="flex justify-end mt-6">
       <button 
-      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
         onClick={handleEdit}
         disabled={disableView}
         >
         Edit
         </button>
       <button 
-      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
       onClick={handleView}
       disabled={disableView}
       >
@@ -85,8 +86,9 @@ export default function ShowAssets() {
       </button>
 
       <button 
-      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
-      disabled={disableAssign}
+      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+      disabled = { disableAssign }
+      
       // send id to assign page
       ><Link
       href={{
@@ -97,6 +99,7 @@ export default function ShowAssets() {
     </Link>
         
       </button>
+      </div>
       
       <DataGrid
 

@@ -20,6 +20,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button, Group } from "@mantine/core";
 import SearchUser from "@/components/SearchUser";
 import Fuse from "fuse.js";
+import Link from "next/link";
 
 const options = {
   includeScore: true,
@@ -179,7 +180,8 @@ const AssignAsset = () => {
     <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
       <div className="flex justify-end mt-6">
         <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-          Cancel
+          <Link
+          href={`/assets`}>Cancel</Link>
         </button>
       </div>
       <h1 className="text-xl font-bold text-white capitalize dark:text-white">

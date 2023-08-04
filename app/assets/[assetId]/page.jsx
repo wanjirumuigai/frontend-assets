@@ -35,7 +35,7 @@ const EditPage = ({ params }) => {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-console.log(asset);
+
   return (
     <div>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-2">
@@ -130,7 +130,7 @@ console.log(asset);
                 type="text"
                 name="assigned_to"
                 value={!asset.users || asset.users.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.users[0].firstname
                   )}
@@ -147,7 +147,7 @@ console.log(asset);
                 onChange={handleChange}
                 name="department"
                 value={!asset.users || asset.users.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.users[0].department
                   )}
@@ -164,7 +164,7 @@ console.log(asset);
                 onChange={handleChange}
                 name="assigned_by"
                 value={!asset.assigns || asset.assigns.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.assigns[0].assigned_by
                   )}
