@@ -180,7 +180,11 @@ const EditPage = ({ params }) => {
                 readOnly
                 onChange={handleChange}
                 name="return_date"
-                value={asset.return_date}
+                value={!asset.assigns || asset.assigns.length === 0 ? (
+                  "N/A")
+                  : (
+                    asset.assigns[0].return_date
+                  )}
                 type="date"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -193,7 +197,11 @@ const EditPage = ({ params }) => {
                 readOnly
                 onChange={handleChange}
                 name="received_by"
-                value={asset.received_by}
+                value={!asset.assigns || asset.assigns.length === 0 ? (
+                  "N/A")
+                  : (
+                    asset.assigns[0].received_by
+                  )}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />

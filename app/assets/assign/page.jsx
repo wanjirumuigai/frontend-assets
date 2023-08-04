@@ -38,7 +38,7 @@ const AssignAsset = () => {
 
   // Receive id from the assets page
   const id = router.query;
-  console.log(id);
+  console.log(router.query);
 
   const [userId, setUserId] = useState(0);
   const [assignee, setAssignee] = useState({});

@@ -17,7 +17,7 @@ const EditPage = ({ params }) => {
   });
   const { userId } = params;
   const router = useRouter();
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch(`http://localhost:4000/users/${userId}`);
