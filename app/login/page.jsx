@@ -1,19 +1,22 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage() {
   const [errors, setErrors] = useState();
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
 
+  const router = useRouter()
+
   function handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
-
     setLoginForm({ ...loginForm, [name]: value });
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     fetch("http://127.0.0.1:4000/login", {
@@ -26,17 +29,21 @@ export default function LoginPage({ onLogin }) {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          onLogin(user);
           setLoginForm({
             email: "",
             password: "",
           });
+
+          // store the token in a session cookie
+          sessionStorage.setItem("user", JSON.stringify(user))
+          router.push("/")
         });
       } else {
         res.json().then((err) => setErrors(err.error));
       }
     });
   }
+
   return (
     <div
       className="border border-2 p-5 rounded mx-auto my-20"

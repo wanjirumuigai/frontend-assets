@@ -7,6 +7,7 @@ import { TbLicense } from "react-icons/tb";
 import { NavLink } from "@mantine/core";
 
 export default function NavBar({children}){
+  const user = JSON.parse(sessionStorage.getItem("user"))
   return (
     <div className="flex flex-row">
           <div className="navbar bg-gray-900 w-1/6 h-screen">
@@ -103,9 +104,10 @@ export default function NavBar({children}){
             <div className="top-section">
               <div className="flex flex-row justify-between px-10 my-2.5">
                 <MdMenuOpen size={48} />
+                {user ? <h1 className="font-bold text-xl self-end mx-2">Welcome, {user.user["firstname"]}</h1> : null}
                 <div className="user-menu flex flex-row">
                   <FaUserGear size={48} className="mx-2" />
-                  <h1 className="font-bold text-xl self-end mx-2">Admin</h1>
+                  <h1 className="font-bold text-xl self-end mx-2">{user ? "Logout" : "Login"}</h1>
                 </div>
               </div>
               <hr className="border-zinc-900" />
