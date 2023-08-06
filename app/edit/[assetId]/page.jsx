@@ -12,7 +12,7 @@ const EditPage = ({ params }) => {
     serial_no: asset.serial_no,
     category: asset.category,
     status: asset.status,
-    purchase_price: asset.purchase_price,
+    purchase_price: asset.purchase_price
   });
   const { assetId } = params;
   const router = useRouter();
@@ -59,7 +59,11 @@ const EditPage = ({ params }) => {
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           {asset.asset_name + ": " + asset.model}
         </h1>
-        <form>
+        <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdate();
+        }}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label className="text-white dark:text-gray-200">
@@ -262,7 +266,6 @@ const EditPage = ({ params }) => {
               <Link href="/assets">Cancel</Link>
             </button>
             <button
-              onClick={handleUpdate}
               className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
             >
               Update

@@ -93,9 +93,9 @@ export default function ShowAssets() {
       ><Link
       href={{
         pathname: `/assets/assign`,
-        query: [rowSelectionModel],
+        query: rowSelectionModel,
       }}
-    >  Assign{disableAssign}
+    >  Assign
     </Link>
         
       </button>
