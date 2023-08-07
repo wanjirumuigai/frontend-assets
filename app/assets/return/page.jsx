@@ -39,6 +39,7 @@ const ReturnPage = () => {
   const [department, setDepartment] = useState([]);
   const [userId, setUserId] = useState([]);
   const [assigns, setAssign] = useState([]);
+  const loggedUser = JSON.parse(sessionStorage.getItem("user"));
   
 
   function getUser(obj) {
@@ -90,7 +91,7 @@ const ReturnPage = () => {
 
   const [formData, setFormData] = useState({
     return_date: "",
-    received_by: "Frank",
+    received_by: loggedUser.user["firstname"] + " " + loggedUser.user["lastname"],
     is_returned: true
   });
   
@@ -102,7 +103,7 @@ const ReturnPage = () => {
     assignedIds.forEach(id => {
       
       fetch(`http://localhost:4000/assigns/${id}`, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -117,6 +118,7 @@ const ReturnPage = () => {
       });
     });
   }
+  
   return (
     <div>
         <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
