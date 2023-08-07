@@ -35,7 +35,7 @@ const EditPage = ({ params }) => {
 
 
     fetch(`http://localhost:4000/users/${userId}`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

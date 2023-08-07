@@ -32,7 +32,7 @@ const EditPage = ({ params }) => {
   }
   function handleUpdate() {
     fetch(`http://localhost:4000/assets/${assetId}`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

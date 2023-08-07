@@ -35,6 +35,7 @@ const AssignAsset = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("Add user");
+  const loggedUser = JSON.parse(sessionStorage.getItem("user"));
 
   // Receive id from the assets page
   const id = router.query;
@@ -43,6 +44,7 @@ const AssignAsset = () => {
   const [userId, setUserId] = useState(0);
   const [assignee, setAssignee] = useState({});
   const [location, setLocation] = useState("");
+  const [assign_date, setAssignDate] = useState("")
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState([]);
 
@@ -78,7 +80,8 @@ const AssignAsset = () => {
         department: assignee.department,
         asset_id: asset.id,
         location: location,
-        assigned_by: "Pauline",
+        assign_date: assign_date,
+        assigned_by: loggedUser.user["firstname"] + " " + loggedUser.user["lastname"]
       },
     ]);
   }
@@ -143,6 +146,7 @@ const AssignAsset = () => {
             department: "",
             asset_id: "",
             location: "",
+            assign_date: "",
             assigned_by: "",
           });
         });
@@ -160,6 +164,7 @@ const AssignAsset = () => {
 
   function handleChange(e) {
     setLocation(e.target.value);
+    // setAssignDate(e.target.value);
   }
 
   return (
@@ -202,6 +207,18 @@ const AssignAsset = () => {
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
           </div>
+
+          {/* <div>
+            <label className="text-white dark:text-gray-200">Assign date</label>
+            <input
+              required
+              name="assign_date"
+              value={assign_date}
+              type="date"
+              // onChange={}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div> */}
         </div>
         <div>
           <label className="text-white dark:text-gray-200">Add Assets</label>
