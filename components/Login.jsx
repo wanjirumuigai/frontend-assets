@@ -1,8 +1,7 @@
-"use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function LoginPage(handleIsLoggedIn) {
   const [errors, setErrors] = useState();
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -37,7 +36,8 @@ export default function LoginPage() {
           // store the token in a session cookie
           sessionStorage.setItem("user", JSON.stringify(user))
           router.refresh()
-          router.push("/")
+          handleIsLoggedIn
+          // router.push("/")
         });
       } else {
         res.json().then((err) => setErrors(err.error));
