@@ -16,28 +16,12 @@ const ths = (
   </tr>
 );
 
-const elements= [
-  {name: "Mouse",
-  model: "HP",
-  asset_tag: "KISE/ICT/3536",
-  serial_no: "36TDSJ",
-}
-]
-
-const rows = elements.map((element) => (
-  <tr key={element.id}>
-     <td>{element.name}</td>
-    <td>{element.model}</td>
-    <td>{element.asset_tag}</td>
-    <td>{element.serial_no}</td>
-    
-  </tr>
-));
 
 const ViewPage = ({ params }) => {
   const [user, setUser] = useState([]);
   const [assetIds, setAssetIds] = useState([]);
   const [assets, setAssets] = useState([]);
+  const [assigns, setAssigns] = useState([]);
   const [formData, setFormData] = useState({
     firstname: user.firstname,
     lastname: user.lastname,
@@ -62,7 +46,7 @@ const ViewPage = ({ params }) => {
   
   useEffect(() => {
     if (user.assigns) {
-      const asset_ids = user.assigns.map(assign => assign.asset_id);
+      const asset_ids = user.assigns.filter(asset => asset.is_returned === false).map(assign => assign.asset_id);
       setAssetIds(asset_ids);
       }
   }, [user]);
@@ -77,14 +61,18 @@ const ViewPage = ({ params }) => {
     fetchAssets();
   }, []);
 
+  useEffect(() => {
+    const fetchAssets = async () => {
+      const res = await fetch("http://localhost:4000/assigns");
+      const data = await res.json();
+      setAssigns(data);
+    };
+
+    fetchAssets();
+  }, []);
+
   const userAssets = assets.filter(asset => assetIds.includes(asset.id));
 
-  function handleCancel() {
-    router.push("/users");
-  }
-  function handleEdit() {
-    router.push(`/users/edit/${userId}`);
-  }
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -171,26 +159,26 @@ const ViewPage = ({ params }) => {
             </div>
             {/* List of Assigned Assets */}
             <h1 className="mt-5"></h1>
-            <Table className="text-slate-950">
-      <caption className="mt-5">Assigned Assets </caption>
-      <thead >{ths}</thead>
-      <tbody>
-      {userAssets.map(asset => (
-        <tr key={asset.id}>
-        <td>{asset.asset_name}</td>
-        <td>{asset.model}</td>
-        <td>{asset.asset_tag}</td>
-        <td>{asset.serial_no}</td>
-        <td>{<Link href={`/assets/${asset.id}`}><IconEye
-                            size="1.5rem"
-                            color="white"
-                            className="bg-amber-600 rounded"
-                          /></Link>}</td>
-        </tr>
-      ))}
-      </tbody>
-      
-    </Table>
+            <Table className="text-slate-950 bg-white">
+              <caption className="mt-5">Assigned Assets </caption>
+              <thead >{ths}</thead>
+              <tbody>
+              {userAssets.map(asset => (
+                <tr key={asset.id}>
+                <td>{asset.asset_name}</td>
+                <td>{asset.model}</td>
+                <td>{asset.asset_tag}</td>
+                <td>{asset.serial_no}</td>
+                <td>{<Link href={`/assets/${asset.id}`}><IconEye
+                                    size="1.5rem"
+                                    color="white"
+                                    className="bg-amber-600 rounded"
+                                  /></Link>}</td>
+                </tr>
+              ))}
+              </tbody>
+              
+            </Table>
 
 
 

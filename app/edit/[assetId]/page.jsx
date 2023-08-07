@@ -12,10 +12,11 @@ const EditPage = ({ params }) => {
     serial_no: asset.serial_no,
     category: asset.category,
     status: asset.status,
-    purchase_price: asset.purchase_price,
+    purchase_price: asset.purchase_price
   });
   const { assetId } = params;
   const router = useRouter();
+  const [errors, setErrors] = useState([]);
   useEffect(() => {
     const fetchAsset = async () => {
       const res = await fetch(`http://localhost:4000/assets/${assetId}`);
@@ -29,9 +30,28 @@ const EditPage = ({ params }) => {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-  function handledUpdate() {
-    console.log(formData);
+  function handleUpdate() {
+    fetch(`http://localhost:4000/assets/${assetId}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      }, 
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          setFormData(data)
+        })
+      } else {
+        res.json().then((err) => setErrors(err.errors))
+      }
+    })
   }
+  
+  let displayErrs =Object.keys(errors).map(function(property) {
+    return errors[property]
+   })
 
   return (
     <div>
@@ -39,7 +59,11 @@ const EditPage = ({ params }) => {
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           {asset.asset_name + ": " + asset.model}
         </h1>
-        <form>
+        <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdate();
+        }}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label className="text-white dark:text-gray-200">
@@ -131,7 +155,7 @@ const EditPage = ({ params }) => {
                 type="text"
                 name="assigned_to"
                 value={!asset.users || asset.users.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.users[0].firstname
                   )}
@@ -148,7 +172,7 @@ const EditPage = ({ params }) => {
                 onChange={handleChange}
                 name="department"
                 value={!asset.users || asset.users.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.users[0].department
                   )}
@@ -165,7 +189,7 @@ const EditPage = ({ params }) => {
                 onChange={handleChange}
                 name="assigned_by"
                 value={!asset.assigns || asset.assigns.length === 0 ? (
-                  <div>loading...</div>)
+                  "N/A")
                   : (
                     asset.assigns[0].assigned_by
                   )}
@@ -181,7 +205,11 @@ const EditPage = ({ params }) => {
                 readOnly
                 onChange={handleChange}
                 name="return_date"
-                value=""
+                value={!asset.assigns || asset.assigns.length === 0 ? (
+                  "N/A")
+                  : (
+                    asset.assigns[0].return_date
+                  )}
                 type="date"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -193,7 +221,11 @@ const EditPage = ({ params }) => {
               <input
                 onChange={handleChange}
                 name="received_by"
-                value=""
+                value={!asset.assigns || asset.assigns.length === 0 ? (
+                  "N/A")
+                  : (
+                    asset.assigns[0].received_by
+                  )}
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -220,6 +252,13 @@ const EditPage = ({ params }) => {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
             </div>
+            {displayErrs.length > 0 && (
+              <ul style={{ color: "red" }}>
+                {displayErrs.map((error) => (
+                  <li key={error}>{error}</li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className="flex justify-between mt-6">
@@ -227,7 +266,6 @@ const EditPage = ({ params }) => {
               <Link href="/assets">Cancel</Link>
             </button>
             <button
-              onClick={handledUpdate}
               className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
             >
               Update
