@@ -35,8 +35,9 @@ export default function LoginPage() {
           });
 
           // store the token in a session cookie
-          sessionStorage.setItem("user", JSON.stringify(user))
-          router.refresh()
+          sessionStorage.setItem("user", JSON.stringify(user));
+          window.location.reload();
+          // router.refresh()
           router.push("/")
         });
       } else {

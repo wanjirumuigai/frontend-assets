@@ -29,6 +29,7 @@ const options = {
 
 const AssignAsset = () => {
   const [assets, setAssets] = useState([]);
+  const [assigns, setAssigns] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [assignedItem, setAssignedItems] = useState([]);
   const router = useRouter();
@@ -57,6 +58,15 @@ const AssignAsset = () => {
   );
 
   useEffect(() => {
+    const fetchAssigns = async () => {
+      const res = await fetch("http://localhost:4000/assigns");
+      const data = await res.json();
+      setAssigns(data);
+    };
+
+    fetchAssigns();
+  }, []);
+  useEffect(() => {
     const fetchAssets = async () => {
       const res = await fetch("http://localhost:4000/assets");
       const data = await res.json();
@@ -65,6 +75,9 @@ const AssignAsset = () => {
 
     fetchAssets();
   }, []);
+
+  const issued_assets = assigns.filter(asset => asset.is_returned === false).map(assign => assign.asset_id);
+  const available_assets = assets.filter(asset => !issued_assets.includes(asset.id));
 
   const [assetsId, setAssetsID] = useState([]);
 
@@ -93,7 +106,7 @@ const AssignAsset = () => {
     router.push(`/assets/${id}`);
   }
 
-  const actions = assets.map((asset) => ({
+  const actions = available_assets.map((asset) => ({
     title: asset.asset_name + " " + asset.model,
     description: "Tag: " + asset.asset_tag + " " + "Serial: " + asset.serial_no,
     onTrigger: () => handleAddAsset(asset),
