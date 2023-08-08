@@ -34,8 +34,9 @@ export default function LoginPage(handleIsLoggedIn) {
           });
 
           // store the token in a session cookie
-          sessionStorage.setItem("user", JSON.stringify(user))
-          router.refresh()
+          sessionStorage.setItem("user", JSON.stringify(user));
+          window.location.reload();
+          // router.reload();
           handleIsLoggedIn
           // router.push("/")
         });
