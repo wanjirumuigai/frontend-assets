@@ -8,9 +8,18 @@ import { Loader } from "@mantine/core";
 
 export default function DashBoard() {
   const [dashboard, setDashboard] = useState(null)
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt
 
   useEffect(() => {
-    fetch("http://127.0.0.1:4000/dashboard")
+    fetch("http://127.0.0.1:4000/dashboard", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+)
     .then(res => res.json())
     .then(data => setDashboard(data))
   }, [])
