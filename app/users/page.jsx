@@ -43,7 +43,7 @@ const ShowUsers = () => {
 
     fetchUsers();
   }, []);
-  console.log(users);
+
   const fuse = new Fuse(users, options);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
