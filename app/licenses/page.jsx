@@ -20,10 +20,18 @@ import NewLicenseForm from "@/components/NewLicenseForm";
 export default function LicensePage() {
   const [licenses, setLicenses] = useState([]);
   const [opened, { open, close }] = useDisclosure(false);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchLicenses = async () => {
-      const response = await fetch("http://127.0.0.1:4000/licenses");
+      const response = await fetch("http://127.0.0.1:4000/licenses", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setLicenses(data);
     };

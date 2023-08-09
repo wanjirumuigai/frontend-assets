@@ -9,13 +9,14 @@ function AddUser() {
     lastname: "",
     email: "",
     password: "",
-    password_confirmation:"",
-    role:"",
+    password_confirmation: "",
+    role: "",
     department: "",
-    designation:""
+    designation: "",
   });
   const [checked, setChecked] = useState(false);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
+  const token = JSON.parse(sessionStorage.getItem("user"));
 
   function handleChange(e) {
     setFormData({
@@ -24,14 +25,13 @@ function AddUser() {
     });
   }
 
-  function handleSubmit () {
-
-   
+  function handleSubmit() {
     fetch("http://localhost:4000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then((res) => {
@@ -42,32 +42,25 @@ function AddUser() {
             lastname: "",
             email: "",
             password: "",
-            password_confirmation:"",
-            role:"",
+            password_confirmation: "",
+            role: "",
             department: "",
-            designation:""
+            designation: "",
           });
-
-        })
+        });
       } else {
-        res.json().then((err) => setErrors(err.errors))
-        
+        res.json().then((err) => setErrors(err.errors));
       }
-    })
-
-    
-  };
- let displayErrs =Object.keys(errors).map(function(property) {
-  return errors[property]
- })
-
-
+    });
+  }
+  let displayErrs = Object.keys(errors).map(function (property) {
+    return errors[property];
+  });
 
   return (
     <>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
         <div className="flex justify-end mt-6">
-        
           <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
             <Link href="/users">Cancel</Link>
           </button>
@@ -116,7 +109,7 @@ function AddUser() {
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
-            </div>          
+            </div>
 
             <div>
               <label className="text-white dark:text-gray-200">
@@ -132,7 +125,7 @@ function AddUser() {
             </div>
             <div>
               <label className="text-white dark:text-gray-200">
-               Designation
+                Designation
               </label>
               <input
                 name="designation"
@@ -140,7 +133,7 @@ function AddUser() {
                 type="text"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />              
+              />
             </div>
             <div>
               <label className="text-white dark:text-gray-200">
@@ -156,13 +149,10 @@ function AddUser() {
                 <option defaultValue={true}>Select Category</option>
                 <option>Admin</option>
                 <option>User</option>
-               
               </select>
             </div>
             <div>
-              <label className="text-white dark:text-gray-200">
-                Password
-              </label>
+              <label className="text-white dark:text-gray-200">Password</label>
               <input
                 name="password"
                 value={formData.password}
@@ -173,7 +163,7 @@ function AddUser() {
             </div>
             <div>
               <label className="text-white dark:text-gray-200">
-               Confirm Password
+                Confirm Password
               </label>
               <input
                 name="password_confirmation"
@@ -184,17 +174,14 @@ function AddUser() {
               />
             </div>
             {displayErrs.length > 0 && (
-    <ul style={{ color: "red" }}>
-      {displayErrs.map((error) => (
-        <li key={error}>{error}</li>
-      ))}
-    </ul>
-  )}
-            
-            
-        </div>
-       
-        
+              <ul style={{ color: "red" }}>
+                {displayErrs.map((error) => (
+                  <li key={error}>{error}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           <div className="flex justify-end mt-6">
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
               Save

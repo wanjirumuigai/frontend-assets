@@ -10,17 +10,25 @@ const EditPage = ({ params }) => {
     lastname: user.lastname,
     email: user.email,
     password: "",
-    password_confirmation:"",
-    role:user.role,
+    password_confirmation: "",
+    role: user.role,
     department: user.department,
-    designation:user.designation
+    designation: user.designation,
   });
   const { userId } = params;
   const router = useRouter();
   const [errors, setErrors] = useState([]);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await fetch(`http://localhost:4000/users/${userId}`);
+      const res = await fetch(`http://localhost:4000/users/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setUser(data);
       setFormData(data);
@@ -32,36 +40,32 @@ const EditPage = ({ params }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
   function handleUpdate() {
-
-
     fetch(`http://localhost:4000/users/${userId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-      }, 
+      },
       body: JSON.stringify(formData),
     }).then((res) => {
       if (res.ok) {
         res.json().then((data) => {
-          setFormData(data)
-        })
+          setFormData(data);
+        });
       } else {
-        res.json().then((err) => setErrors(err.errors))
+        res.json().then((err) => setErrors(err.errors));
       }
-    })
+    });
   }
-  
-  let displayErrs =Object.keys(errors).map(function(property) {
-    return errors[property]
-   })
-  
+
+  let displayErrs = Object.keys(errors).map(function (property) {
+    return errors[property];
+  });
 
   return (
     <>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
         <div className="flex justify-end mt-6">
-        
           <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
             <Link href="/users">Cancel</Link>
           </button>
@@ -113,7 +117,7 @@ const EditPage = ({ params }) => {
                 readOnly
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
-            </div>          
+            </div>
 
             <div>
               <label className="text-white dark:text-gray-200">
@@ -129,7 +133,7 @@ const EditPage = ({ params }) => {
             </div>
             <div>
               <label className="text-white dark:text-gray-200">
-               Designation
+                Designation
               </label>
               <input
                 name="designation"
@@ -137,7 +141,7 @@ const EditPage = ({ params }) => {
                 type="text"
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />              
+              />
             </div>
             <div>
               <label className="text-white dark:text-gray-200">
@@ -153,13 +157,10 @@ const EditPage = ({ params }) => {
                 <option>Select Category</option>
                 <option>Admin</option>
                 <option>User</option>
-               
               </select>
             </div>
             <div>
-              <label className="text-white dark:text-gray-200">
-                Password
-              </label>
+              <label className="text-white dark:text-gray-200">Password</label>
               <input
                 name="password"
                 value={formData.password}
@@ -168,19 +169,15 @@ const EditPage = ({ params }) => {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
-                      
-            
-        </div>
-        {displayErrs.length > 0 && (
-    <ul style={{ color: "red" }}>
-      {displayErrs.map((error) => (
-        <li key={error}>{error}</li>
-      ))}
-    </ul>
-  )}
-     
-       
-        
+          </div>
+          {displayErrs.length > 0 && (
+            <ul style={{ color: "red" }}>
+              {displayErrs.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          )}
+
           <div className="flex justify-end mt-6">
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
               Update

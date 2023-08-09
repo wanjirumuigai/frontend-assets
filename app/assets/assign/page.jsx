@@ -45,9 +45,10 @@ const AssignAsset = () => {
   const [userId, setUserId] = useState(0);
   const [assignee, setAssignee] = useState({});
   const [location, setLocation] = useState("");
-  const [assign_date, setAssignDate] = useState("")
+  const [assign_date, setAssignDate] = useState("");
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState([]);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
   const fuse = new Fuse(users, options);
   const ths = (
@@ -61,7 +62,14 @@ const AssignAsset = () => {
 
   useEffect(() => {
     const fetchAssigns = async () => {
-      const res = await fetch("http://localhost:4000/assigns");
+      const res = await fetch("http://localhost:4000/assigns", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setAssigns(data);
     };
@@ -70,7 +78,14 @@ const AssignAsset = () => {
   }, []);
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:4000/assets");
+      const res = await fetch("http://localhost:4000/assets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setAssets(data);
     };
@@ -78,8 +93,12 @@ const AssignAsset = () => {
     fetchAssets();
   }, []);
 
-  const issued_assets = assigns.filter(asset => asset.is_returned === false).map(assign => assign.asset_id);
-  const available_assets = assets.filter(asset => !issued_assets.includes(asset.id));
+  const issued_assets = assigns
+    .filter((asset) => asset.is_returned === false)
+    .map((assign) => assign.asset_id);
+  const available_assets = assets.filter(
+    (asset) => !issued_assets.includes(asset.id)
+  );
 
   const [assetsId, setAssetsID] = useState([]);
 
@@ -94,7 +113,8 @@ const AssignAsset = () => {
         asset_id: asset.id,
         location: location,
         assign_date: assign_date,
-        assigned_by: loggedUser.user["firstname"] + " " + loggedUser.user["lastname"]
+        assigned_by:
+          loggedUser.user["firstname"] + " " + loggedUser.user["lastname"],
       },
     ]);
   }
@@ -183,8 +203,7 @@ const AssignAsset = () => {
     <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
       <div className="flex justify-end mt-6">
         <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-          <Link
-          href={`/assets`}>Cancel</Link>
+          <Link href={`/assets`}>Cancel</Link>
         </button>
       </div>
       <h1 className="text-xl font-bold text-white capitalize dark:text-white">
@@ -227,7 +246,7 @@ const AssignAsset = () => {
               name="assign_date"
               value={assign_date}
               type="date"
-              onChange={e => setAssignDate(e.target.value)}
+              onChange={(e) => setAssignDate(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
           </div>
