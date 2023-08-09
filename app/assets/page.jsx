@@ -39,10 +39,19 @@ export default function ShowAssets() {
   const [assets, setAssets] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const route = useRouter();
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:4000/assets");
+      const res = await fetch("http://localhost:4000/assets",{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+      });
       const data = await res.json();
       setAssets(data);
       setSearchItems(data);
