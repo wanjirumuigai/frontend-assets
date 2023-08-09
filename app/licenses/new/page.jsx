@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 
 export default function NewLicense() {
   const today = new Date().toISOString().split("T")[0];
-  const router = useRouter()
+  const router = useRouter();
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
   // Handle the new license details
   const [licenseForm, setLicenseForm] = useState({
@@ -23,20 +24,22 @@ export default function NewLicense() {
   }
 
   function onSubmitForm(e) {
-    e.preventDefault()
+    e.preventDefault();
     fetch("http://localhost:4000/licenses", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(licenseForm),
     })
-    .then(res => {
-      if (res.ok){
-        router.push("/licenses")
-      }
-    })
-    .catch((e) => console.log(e));
+      .then((res) => {
+        if (res.ok) {
+          router.push("/licenses");
+        }
+      })
+      .catch((e) => console.log(e));
 
     setLicenseForm({
       license_name: "",

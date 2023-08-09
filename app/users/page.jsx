@@ -24,10 +24,18 @@ const ShowUsers = () => {
   const [users, setUsers] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const router = useRouter();
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch("http://localhost:4000/users");
+      const res = await fetch("http://localhost:4000/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setUsers(data);
       setSearchItems(data);
@@ -35,7 +43,7 @@ const ShowUsers = () => {
 
     fetchUsers();
   }, []);
-
+  console.log(users);
   const fuse = new Fuse(users, options);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({

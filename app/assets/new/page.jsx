@@ -15,6 +15,7 @@ function AddAsset() {
   });
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState([]);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
   function handleChange(e) {
     setFormData({
@@ -29,6 +30,7 @@ function AddAsset() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then((res) => {
@@ -43,15 +45,15 @@ function AddAsset() {
             status: "",
             purchase_price: "",
           });
-        })
+        });
       } else {
-        res.json().then((err) => setErrors(err.errors))
+        res.json().then((err) => setErrors(err.errors));
       }
-    })
+    });
   };
-  let displayErrs =Object.keys(errors).map(function(property) {
-    return errors[property]
-   });
+  let displayErrs = Object.keys(errors).map(function (property) {
+    return errors[property];
+  });
 
   return (
     <>

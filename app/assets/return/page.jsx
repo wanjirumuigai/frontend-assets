@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -40,7 +40,6 @@ const ReturnPage = () => {
   const [userId, setUserId] = useState([]);
   const [assigns, setAssign] = useState([]);
   const loggedUser = JSON.parse(sessionStorage.getItem("user"));
-  
 
   function getUser(obj) {
     setSelectedUser(obj[0].firstname + " " + obj[0].lastname);
@@ -59,9 +58,11 @@ const ReturnPage = () => {
 
   useEffect(() => {
     if (user.assigns) {
-      const asset_ids = user.assigns.filter(asset => asset.is_returned === false).map(assign => assign.asset_id);
+      const asset_ids = user.assigns
+        .filter((asset) => asset.is_returned === false)
+        .map((assign) => assign.asset_id);
       setAssetIds(asset_ids);
-      }
+    }
   }, [user]);
 
   useEffect(() => {
@@ -73,7 +74,7 @@ const ReturnPage = () => {
 
     fetchAssets();
   }, []);
-  
+
   useEffect(() => {
     const fetchAssets = async () => {
       const res = await fetch("http://localhost:4000/assigns");
@@ -84,29 +85,33 @@ const ReturnPage = () => {
     fetchAssets();
   }, []);
 
-  const userAssets = assets.filter(asset => assetIds.includes(asset.id));
+  const userAssets = assets.filter((asset) => assetIds.includes(asset.id));
   const selected_ids = rowSelectionModel;
-  const returnAssets = assigns.filter(asset => selected_ids.includes(asset.asset_id));
-  const assignedIds = returnAssets.map(assign => assign.id);
+  const returnAssets = assigns.filter((asset) =>
+    selected_ids.includes(asset.asset_id)
+  );
+  const assignedIds = returnAssets.map((assign) => assign.id);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
   const [formData, setFormData] = useState({
     return_date: "",
-    received_by: loggedUser.user["firstname"] + " " + loggedUser.user["lastname"],
-    is_returned: true
+    received_by:
+      loggedUser.user["firstname"] + " " + loggedUser.user["lastname"],
+    is_returned: true,
   });
-  
+
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   function handleSubmit() {
-    assignedIds.forEach(id => {
-      
+    assignedIds.forEach((id) => {
       fetch(`http://localhost:4000/assigns/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       }).then((res) => {
@@ -114,66 +119,71 @@ const ReturnPage = () => {
           res.json().then(() => {
             setUserId("");
           });
-        } 
+        }
       });
     });
   }
-  
+
   return (
     <div>
-        <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
-      <div className="flex justify-end mt-6">
-        <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-          <Link
-          href={`/assets`}>Cancel</Link>
-        </button>
-      </div>
-      <h1 className="text-xl font-bold text-white capitalize dark:text-white">
-        Return Asset
-      </h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          <div>
-            <label className="text-white dark:text-gray-200">Select User</label>
-            <select
-              value={selectedUser}
-              onChange={handleChange}
-              name=""
-              onClick={open}
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-            >
-              <option>{selectedUser}</option>
-            </select>
-          </div>
+      <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
+        <div className="flex justify-end mt-6">
+          <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+            <Link href={`/assets`}>Cancel</Link>
+          </button>
+        </div>
+        <h1 className="text-xl font-bold text-white capitalize dark:text-white">
+          Return Asset
+        </h1>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div>
+              <label className="text-white dark:text-gray-200">
+                Select User
+              </label>
+              <select
+                value={selectedUser}
+                onChange={handleChange}
+                name=""
+                onClick={open}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                <option>{selectedUser}</option>
+              </select>
+            </div>
 
-          <div>
-            <label className="text-white dark:text-gray-200">Department</label>
-            <input
-              readOnly
-              onChange={handleChange}
-              name="department"
-              value={department}
-              type="text"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-            />
-          </div>
-          <div>
-            <label className="text-white dark:text-gray-200">Return Date</label>
-            <input
-              required
-              onChange={handleChange}
-              name="return_date"
-              value={formData.return_date}
-              type="date"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-            />
-          </div>
-          <div>
+            <div>
+              <label className="text-white dark:text-gray-200">
+                Department
+              </label>
+              <input
+                readOnly
+                onChange={handleChange}
+                name="department"
+                value={department}
+                type="text"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+            <div>
+              <label className="text-white dark:text-gray-200">
+                Return Date
+              </label>
+              <input
+                required
+                onChange={handleChange}
+                name="return_date"
+                value={formData.return_date}
+                type="date"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+            <div>
               <label className="text-white dark:text-gray-200">Notes</label>
               <textarea
                 onChange={handleChange}
@@ -181,35 +191,41 @@ const ReturnPage = () => {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
             </div>
-        </div>
-        <div>
-          <label className="text-white dark:text-gray-200">User Assets</label>
-          <DataGrid  className="bg-white"
-          onRowSelectionModelChange={(newRowSelectionModel) => {
-            setRowSelectionModel(newRowSelectionModel);
-          }}
-          rowSelectionModel={rowSelectionModel}
-          rows={userAssets}
-          columns={columns}
-          checkboxSelection
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
+          </div>
+          <div>
+            <label className="text-white dark:text-gray-200">User Assets</label>
+            <DataGrid
+              className="bg-white"
+              onRowSelectionModelChange={(newRowSelectionModel) => {
+                setRowSelectionModel(newRowSelectionModel);
+              }}
+              rowSelectionModel={rowSelectionModel}
+              rows={userAssets}
+              columns={columns}
+              checkboxSelection
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 10 },
+                },
+              }}
+              pageSizeOptions={[5, 10]}
+            />
+          </div>
+
+          <div className="flex justify-end mt-6">
+            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+              Return
+            </button>
+          </div>
+        </form>
+        <SearchUser
+          open={open}
+          opened={opened}
+          close={close}
+          getUser={getUser}
         />
-        </div>
-        
-        <div className="flex justify-end mt-6">
-          <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-            Return
-          </button>
-        </div>
-      </form>
-      <SearchUser open={open} opened={opened} close={close} getUser={getUser} />
-    </section>
+      </section>
     </div>
-  )
+  );
 };
 export default ReturnPage;
