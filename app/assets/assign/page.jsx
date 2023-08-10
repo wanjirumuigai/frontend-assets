@@ -40,7 +40,7 @@ const AssignAsset = () => {
 
   // Receive id from the assets page
   const id = router.query;
-  console.log(router.query);
+
 
   const [userId, setUserId] = useState(0);
   const [assignee, setAssignee] = useState({});
@@ -169,6 +169,7 @@ const AssignAsset = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({ _json: formData }),
     }).then((res) => {
@@ -187,6 +188,7 @@ const AssignAsset = () => {
         res.json().then((err) => setErrors(err.errors));
       }
     });
+    router.push('/assets')
   }
 
   function getUser(obj) {
