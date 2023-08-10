@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const EditPage = ({ params }) => {
+  const loggedUser = JSON.parse(sessionStorage.getItem("user"));
+  const username = loggedUser.user["firstname"];
   const [asset, setAsset] = useState([]);
   const [formData, setFormData] = useState({
     asset_name: asset.asset_name,
@@ -13,7 +15,9 @@ const EditPage = ({ params }) => {
     category: asset.category,
     status: asset.status,
     purchase_price: asset.purchase_price,
+    notes: asset.notes,
   });
+  console.log(asset.notes);
   const { assetId } = params;
   const router = useRouter();
   const [errors, setErrors] = useState([]);
@@ -257,10 +261,19 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Notes</label>
               <textarea
+              name="notes"
                 onChange={handleChange}
                 type="textarea"
+                value={formData.notes}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
+              {/* <textarea
+                name="newnotes"
+                onChange={handleChange}
+                type="textarea"
+                value={formData.notes}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              ></textarea> */}
             </div>
             {displayErrs.length > 0 && (
               <ul style={{ color: "red" }}>

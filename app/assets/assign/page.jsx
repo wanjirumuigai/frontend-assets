@@ -41,7 +41,7 @@ const AssignAsset = () => {
   // Receive id from the assets page
   const id = router.query;
 
-
+  const today = new Date().toISOString().split("T")[0];
   const [userId, setUserId] = useState(0);
   const [assignee, setAssignee] = useState({});
   const [location, setLocation] = useState("");
@@ -49,7 +49,6 @@ const AssignAsset = () => {
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState([]);
   const token = JSON.parse(sessionStorage.getItem("user")).jwt;
-
   const fuse = new Fuse(users, options);
   const ths = (
     <tr>
@@ -188,7 +187,7 @@ const AssignAsset = () => {
         res.json().then((err) => setErrors(err.errors));
       }
     });
-    router.push('/assets')
+    router.push(`/users/${userId}`)
   }
 
   function getUser(obj) {
@@ -249,6 +248,7 @@ const AssignAsset = () => {
               value={assign_date}
               type="date"
               onChange={(e) => setAssignDate(e.target.value)}
+              max={today}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
           </div>

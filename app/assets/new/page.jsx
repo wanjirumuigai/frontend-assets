@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 function AddAsset() {
+  const loggedUser = JSON.parse(sessionStorage.getItem("user"));
+  const username = loggedUser.user["firstname"];
   const [formData, setFormData] = useState({
     asset_name: "",
     model: "",
@@ -12,10 +14,12 @@ function AddAsset() {
     category: "",
     status: "",
     purchase_price: "",
+    notes: username + ":\n",
   });
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState([]);
   const token = JSON.parse(sessionStorage.getItem("user")).jwt;
+  
 
   function handleChange(e) {
     setFormData({
@@ -44,6 +48,7 @@ function AddAsset() {
             category: "",
             status: "",
             purchase_price: "",
+            notes: username + ":\n",
           });
         });
       } else {
@@ -174,8 +179,10 @@ function AddAsset() {
             <div>
               <label className="text-white dark:text-gray-200">Notes</label>
               <textarea
-                id="textarea"
+                name="notes"
                 type="textarea"
+                onChange={handleChange}
+                value={formData.notes}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
             </div>
