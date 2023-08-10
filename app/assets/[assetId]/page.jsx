@@ -230,6 +230,7 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Notes</label>
               <textarea
+                readOnly
                 id="notes"
                 name="notes"
                 value={formData.notes}
