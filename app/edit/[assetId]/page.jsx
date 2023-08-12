@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const EditPage = ({ params }) => {
+  const loggedUser = JSON.parse(sessionStorage.getItem("user"));
+  const username = loggedUser.user["firstname"];
+  const [newNotes, setNewNotes] = useState("");
   const [asset, setAsset] = useState([]);
+  const allNotes = asset.notes + "\n" + username + ":\n" + newNotes;
   const [formData, setFormData] = useState({
     asset_name: asset.asset_name,
     model: asset.model,
@@ -13,6 +17,7 @@ const EditPage = ({ params }) => {
     category: asset.category,
     status: asset.status,
     purchase_price: asset.purchase_price,
+    notes: allNotes,
   });
   const { assetId } = params;
   const router = useRouter();
@@ -38,6 +43,11 @@ const EditPage = ({ params }) => {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
+
+  function handleNoteChange(e) {
+    setNewNotes(e.target.value);
+    setFormData({ ...formData, notes: allNotes});
+  }
   function handleUpdate() {
     fetch(`http://localhost:4000/assets/${assetId}`, {
       method: "PATCH",
@@ -56,6 +66,7 @@ const EditPage = ({ params }) => {
         res.json().then((err) => setErrors(err.errors));
       }
     });
+    router.push(`/assets/${assetId}`);
   }
 
   let displayErrs = Object.keys(errors).map(function (property) {
@@ -254,14 +265,26 @@ const EditPage = ({ params }) => {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
-            <div>
-              <label className="text-white dark:text-gray-200">Notes</label>
-              <textarea
-                onChange={handleChange}
-                type="textarea"
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              ></textarea>
-            </div>
+              <div>
+                <label className="text-white dark:text-gray-200">Notes</label>
+                <textarea
+                  readOnly
+                  name="notes"
+                  type="textarea"
+                  value={formData.notes}
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                ></textarea>
+              </div>
+              <div>
+                <label className="text-white dark:text-gray-200">Add Notes</label>
+                <textarea
+                  name="notes"
+                  onChange={handleNoteChange}
+                  type="textarea"
+                  value={newNotes}
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                ></textarea>
+              </div>
             {displayErrs.length > 0 && (
               <ul style={{ color: "red" }}>
                 {displayErrs.map((error) => (
@@ -273,7 +296,7 @@ const EditPage = ({ params }) => {
 
           <div className="flex justify-between mt-6">
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-              <Link href="/assets">Cancel</Link>
+              <Link href={`/assets/${assetId}`}>Cancel</Link>
             </button>
             <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
               Update

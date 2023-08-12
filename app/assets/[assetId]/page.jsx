@@ -13,6 +13,7 @@ const EditPage = ({ params }) => {
     category: asset.category,
     status: asset.status,
     purchase_price: asset.purchase_price,
+    notes: asset.notes,
   });
   const { assetId } = params;
   const router = useRouter();
@@ -229,6 +230,10 @@ const EditPage = ({ params }) => {
             <div>
               <label className="text-white dark:text-gray-200">Notes</label>
               <textarea
+                readOnly
+                id="notes"
+                name="notes"
+                value={formData.notes}
                 onChange={handleChange}
                 type="textarea"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"

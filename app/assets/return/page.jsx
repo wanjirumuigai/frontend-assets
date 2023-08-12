@@ -40,6 +40,7 @@ const ReturnPage = () => {
   const [userId, setUserId] = useState([]);
   const [assigns, setAssign] = useState([]);
   const loggedUser = JSON.parse(sessionStorage.getItem("user"));
+  const today = new Date().toISOString().split("T")[0];
 
   function getUser(obj) {
     setSelectedUser(obj[0].firstname + " " + obj[0].lastname);
@@ -49,7 +50,14 @@ const ReturnPage = () => {
   }
   useEffect(() => {
     const fetchAsset = async () => {
-      const res = await fetch(`http://localhost:4000/assigns/${userId}`);
+      const res = await fetch(`http://localhost:4000/assigns/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setUser(data);
     };
@@ -67,7 +75,14 @@ const ReturnPage = () => {
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:4000/assets");
+      const res = await fetch("http://localhost:4000/assets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setAssets(data);
     };
@@ -77,7 +92,14 @@ const ReturnPage = () => {
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:4000/assigns");
+      const res = await fetch("http://localhost:4000/assigns", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setAssign(data);
     };
@@ -122,6 +144,7 @@ const ReturnPage = () => {
         }
       });
     });
+    router.push(`/users/${userId}`);
   }
 
   return (
@@ -180,6 +203,7 @@ const ReturnPage = () => {
                 name="return_date"
                 value={formData.return_date}
                 type="date"
+                max={today}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
