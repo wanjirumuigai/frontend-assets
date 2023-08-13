@@ -45,6 +45,7 @@ const EditPage = ({ params }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then((res) => {

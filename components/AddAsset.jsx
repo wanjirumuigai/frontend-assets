@@ -13,6 +13,7 @@ function AddAsset() {
     purchasePrice: "",
   });
   const [checked, setChecked] = useState(false);
+  const token = JSON.parse(sessionStorage.getItem("user"));
 
   function handleChange(e) {
     setFormData({
@@ -24,6 +25,11 @@ function AddAsset() {
   const handleSubmit = () => {
     fetch("http://localhost:3000/assets", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(formData),
       headers: {
         "content-type": "application/json",

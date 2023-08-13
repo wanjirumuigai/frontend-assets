@@ -22,6 +22,8 @@ const AssignAsset = () => {
   const [assignedItem, setAssignedItems] = useState([]);
   const router = useRouter();
   const [opened, { open, close }] = useDisclosure(false);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
+
   const ths = (
     <tr>
       <th>Asset Name</th>
@@ -33,7 +35,14 @@ const AssignAsset = () => {
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:3000/assets");
+      const res = await fetch("http://localhost:3000/assets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setAssets(data);
     };

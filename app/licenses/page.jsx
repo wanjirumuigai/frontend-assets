@@ -84,7 +84,9 @@ export default function LicensePage() {
     fetch(`http://localhost:4000/licenses/${updateLicense.id}`, {
       method: "PATCH",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updateLicense),
     })
