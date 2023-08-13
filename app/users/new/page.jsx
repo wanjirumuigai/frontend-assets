@@ -16,7 +16,8 @@ function AddUser() {
   });
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState([]);
-  const token = JSON.parse(sessionStorage.getItem("user"));
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
+  const loggedUser = JSON.parse(sessionStorage.getItem("user")).user;
 
   function handleChange(e) {
     setFormData({
@@ -147,8 +148,15 @@ function AddUser() {
                 required
               >
                 <option defaultValue={true}>Select Category</option>
-                <option>Admin</option>
-                <option>User</option>
+                {loggedUser.role !== "Super Admin" ? (
+                  <option>User</option>
+                ) : (
+                  <>
+                    <option>Super Admin</option>
+                    <option>Admin</option>
+                    <option>User</option>
+                  </>
+                )}
               </select>
             </div>
             <div>

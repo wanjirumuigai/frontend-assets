@@ -18,19 +18,16 @@ const columns = [
   {
     field: "asset_tag",
     headerName: "Tag",
-
     width: 90,
   },
   {
     field: "serial_no",
     headerName: "Serial Number",
-
-    width: 90,
+    width: 130,
   },
   {
     field: "marked_for_disposal",
-    headerName: "Marked for Disposal",
-
+    headerName: "Disposed?",
     width: 90,
   },
 ];
@@ -61,9 +58,9 @@ export default function ShowAssets() {
     fetchAssets();
   }, []);
 
-  const undisposed = assets.filter(
-    (asset) => asset.marked_for_disposal === false
-  );
+  // const undisposed = assets.filter(
+  //   (asset) => asset.marked_for_disposal === false
+  // );
 
   function handleView() {
     router.replace(`/assets/${rowSelectionModel}`);
@@ -86,7 +83,7 @@ export default function ShowAssets() {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <div className="flex justify-end mt-6">
-        {loggedUser.role !== "super_admin" ? null : (
+        {loggedUser.role !== "Super Admin" ? null : (
           <button
             className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
             onClick={handleDispose}
@@ -134,7 +131,7 @@ export default function ShowAssets() {
           setRowSelectionModel(newRowSelectionModel);
         }}
         rowSelectionModel={rowSelectionModel}
-        rows={undisposed}
+        rows={assets}
         columns={columns}
         checkboxSelection
         initialState={{

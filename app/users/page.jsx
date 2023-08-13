@@ -87,7 +87,7 @@ const ShowUsers = () => {
 
   return (
     <>
-      <h1 className="main-heading text-4xl font-bold">user Management</h1>
+      <h1 className="main-heading text-4xl font-bold">User Management</h1>
       <Paper sx={{ width: "80%", overflow: "auto" }} className="mt-7">
         <TableContainer>
           <Table aria-label="simple table">
