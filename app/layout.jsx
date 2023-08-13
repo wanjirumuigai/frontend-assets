@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-row">
-          <div className="navbar bg-gray-900 w-1/6 h-screen">
+          <div className="navbar bg-gray-900 w-1/6 h-screen overflow-hidden">
             <h1 className="text-center font-bold text-lg text-white my-5">
               <Link href="/">ICT ASSET MANAGEMENT</Link>
             </h1>

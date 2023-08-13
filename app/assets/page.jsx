@@ -30,6 +30,36 @@ const columns = [
     headerName: "Disposed?",
     width: 90,
   },
+  {
+    field: "user_id",
+    headerName: "Assigned To",
+    width: 90,
+  },
+  {
+    field: "department",
+    headerName: "Department",
+    width: 90,
+  },
+  {
+    field: "location",
+    headerName: "Location",
+    width: 130,
+  },
+  {
+    field: "assigned_by",
+    headerName: "Assigned By",
+    width: 150,
+  },
+  {
+    field: "is_returned",
+    headerName: "Returned?",
+    width: 100
+  },
+  {
+    field: "received_by",
+    headerName: "Received By",
+    width: 100
+  }
 ];
 
 export default function ShowAssets() {
@@ -75,10 +105,45 @@ export default function ShowAssets() {
       selectedIds: rowSelectionModel,
     });
   };
-
   const fuse = new Fuse(assets, options);
   const disableView = rowSelectionModel.length != 1;
   const disableAssign = rowSelectionModel.length < 1;
+
+  // FOR TRIAL==========================================================================================================
+  const flattenObj = (ob) => {
+
+    // The object which contains the
+    // final result
+    let result = {};
+
+    // loop through the object "ob"
+    for (const i in ob) {
+
+        // We check the type of the i using
+        // typeof() function and recursively
+        // call the function again
+        if ((typeof ob[i]) === 'object' && !Array.isArray(ob[i])) {
+            const temp = flattenObj(ob[i]);
+            for (const j in temp) {
+
+                // Store temp in result
+                result[i + '.' + j] = temp[j];
+            }
+        }
+
+        // Else store ob[i] in result directly
+        else {
+            result[i] = ob[i];
+        }
+    }
+    return result;
+};
+
+const flattened_assets = assets.map((asset) => {
+  return Object.assign({...asset}, flattenObj(asset.assigns[0]))
+})
+
+  // END FOR TRIAL======================================================================================================
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -131,7 +196,7 @@ export default function ShowAssets() {
           setRowSelectionModel(newRowSelectionModel);
         }}
         rowSelectionModel={rowSelectionModel}
-        rows={assets}
+        rows={flattened_assets}
         columns={columns}
         checkboxSelection
         initialState={{

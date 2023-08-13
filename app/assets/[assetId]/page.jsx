@@ -47,12 +47,12 @@ const EditPage = ({ params }) => {
 
   return (
     <div>
-      <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-2">
+      <section className="w-10/12 p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-2">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           {asset.asset_name + ": " + asset.model}
         </h1>
         <form>
-          <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
             <div>
               <label className="text-white dark:text-gray-200">
                 Asset Name
