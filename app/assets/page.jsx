@@ -40,20 +40,18 @@ export default function ShowAssets() {
   const [assets, setAssets] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const router = useRouter();
-  const token = JSON.parse(sessionStorage.getItem("user")).jwt
-  const loggedUser = JSON.parse(sessionStorage.getItem("user"));
-  
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
+  const loggedUser = JSON.parse(sessionStorage.getItem("user")).user;
 
   useEffect(() => {
     const fetchAssets = async () => {
-      const res = await fetch("http://localhost:4000/assets",{
+      const res = await fetch("http://localhost:4000/assets", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
-
       });
       const data = await res.json();
       setAssets(data);
@@ -63,7 +61,9 @@ export default function ShowAssets() {
     fetchAssets();
   }, []);
 
-  const undisposed = assets.filter(asset => asset.marked_for_disposal === false);
+  const undisposed = assets.filter(
+    (asset) => asset.marked_for_disposal === false
+  );
 
   function handleView() {
     router.replace(`/assets/${rowSelectionModel}`);
@@ -75,8 +75,8 @@ export default function ShowAssets() {
 
   const handleDispose = () => {
     markForDisposal({
-      selectedIds: rowSelectionModel
-    }); 
+      selectedIds: rowSelectionModel,
+    });
   };
 
   const fuse = new Fuse(assets, options);
@@ -86,46 +86,50 @@ export default function ShowAssets() {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <div className="flex justify-end mt-6">
-      <button 
-      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
-        onClick={handleDispose}
-        disabled={disableAssign}
+        {loggedUser.role !== "super_admin" ? null : (
+          <button
+            className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+            onClick={handleDispose}
+            disabled={disableAssign}
+          >
+            Mark For Disposal
+          </button>
+        )}
+
+        <button
+          className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+          onClick={handleEdit}
+          disabled={disableView}
         >
-        Mark For Disposal
-      </button>
-      <button 
-      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
-        onClick={handleEdit}
-        disabled={disableView}
-        >
-        Edit
+          Edit
         </button>
-      <button 
-      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
-      onClick={handleView}
-      disabled={disableView}
-      >
-        View
-      </button>
+        <button
+          className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+          onClick={handleView}
+          disabled={disableView}
+        >
+          View
+        </button>
 
-      <button 
-      className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
-      disabled = { disableAssign }
-      
-      // send id to assign page
-      ><Link
-      href={{
-        pathname: `/assets/assign`,
-        query: rowSelectionModel,
-      }}
-    >  Assign
-    </Link>
-        
-      </button>
+        <button
+          className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
+          disabled={disableAssign}
+
+          // send id to assign page
+        >
+          <Link
+            href={{
+              pathname: `/assets/assign`,
+              query: rowSelectionModel,
+            }}
+          >
+            {" "}
+            Assign
+          </Link>
+        </button>
       </div>
-      
-      <DataGrid
 
+      <DataGrid
         onRowSelectionModelChange={(newRowSelectionModel) => {
           setRowSelectionModel(newRowSelectionModel);
         }}
@@ -138,7 +142,7 @@ export default function ShowAssets() {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        slots={{toolbar: GridToolbar}}
+        slots={{ toolbar: GridToolbar }}
         pageSizeOptions={[5, 10, 15]}
       />
     </div>
