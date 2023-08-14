@@ -53,13 +53,13 @@ const columns = [
   {
     field: "is_returned",
     headerName: "Returned?",
-    width: 100
+    width: 100,
   },
   {
     field: "received_by",
     headerName: "Received By",
-    width: 100
-  }
+    width: 100,
+  },
 ];
 
 export default function ShowAssets() {
@@ -109,41 +109,35 @@ export default function ShowAssets() {
   const disableView = rowSelectionModel.length != 1;
   const disableAssign = rowSelectionModel.length < 1;
 
-  // FOR TRIAL==========================================================================================================
   const flattenObj = (ob) => {
-
     // The object which contains the
     // final result
     let result = {};
 
     // loop through the object "ob"
     for (const i in ob) {
-
-        // We check the type of the i using
-        // typeof() function and recursively
-        // call the function again
-        if ((typeof ob[i]) === 'object' && !Array.isArray(ob[i])) {
-            const temp = flattenObj(ob[i]);
-            for (const j in temp) {
-
-                // Store temp in result
-                result[i + '.' + j] = temp[j];
-            }
+      // We check the type of the i using
+      // typeof() function and recursively
+      // call the function again
+      if (typeof ob[i] === "object" && !Array.isArray(ob[i])) {
+        const temp = flattenObj(ob[i]);
+        for (const j in temp) {
+          // Store temp in result
+          result[i + "." + j] = temp[j];
         }
+      }
 
-        // Else store ob[i] in result directly
-        else {
-            result[i] = ob[i];
-        }
+      // Else store ob[i] in result directly
+      else {
+        result[i] = ob[i];
+      }
     }
     return result;
-};
+  };
 
-const flattened_assets = assets.map((asset) => {
-  return Object.assign({...asset}, flattenObj(asset.assigns[0]))
-})
-
-  // END FOR TRIAL======================================================================================================
+  const flattened_assets = assets.map((asset) => {
+    return Object.assign({ ...asset }, flattenObj(asset.assigns[0]));
+  });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
