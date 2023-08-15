@@ -1,4 +1,7 @@
 export default function markForDisposal({
+  router,
+  setSelected,
+  setDisposed,
   selectedIds
   }) {
   const token = JSON.parse(sessionStorage.getItem("user")).jwt;
@@ -17,7 +20,9 @@ export default function markForDisposal({
       }).then((res) => {
         if (res.ok) {
           res.json().then(() => {
-            
+            setDisposed(true);
+            setSelected(0);
+            router.refresh();
           });
         }
       });
