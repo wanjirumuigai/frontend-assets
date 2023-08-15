@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Fuse from "fuse.js";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import markForDisposal from "@/components/MarkForDisposal";
 
@@ -67,8 +67,6 @@ export default function ShowAssets() {
   const [assets, setAssets] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const token = JSON.parse(sessionStorage.getItem("user")).jwt;
   const loggedUser = JSON.parse(sessionStorage.getItem("user")).user;
   const [disposed, setDisposed] = useState(false);
@@ -102,6 +100,10 @@ export default function ShowAssets() {
   function handleEdit() {
     router.replace(`/edit/${rowSelectionModel}`);
   }
+
+  // function handleAssign() {
+  //   router.push("/assets/assign" + "?" + rowSelectionModel );
+  // }
 
   const handleDispose = () => {
     if(confirm("Assets with the IDs: " + rowSelectionModel + " will be marked for disposal")) {
@@ -179,20 +181,18 @@ export default function ShowAssets() {
         <button
           className="px-6 py-2 leading-5 mr-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 disabled:bg-grey-500"
           disabled={disableAssign}
-
-          // send id to assign page
+          // onClick={handleAssign}
         >
           <Link
-            href={{
-              href: "/assets/assign",
-              query: {rowSelectionModel},
-            }}
+          href={{
+            pathname: '/assets/assign',
+            query: {assetIds: JSON.stringify(rowSelectionModel)}
+          }}
           >
-            Assign
+          Assign
           </Link>
         </button>
       </div>
-
       <DataGrid
         onRowSelectionModelChange={(newRowSelectionModel) => {
           setRowSelectionModel(newRowSelectionModel);
