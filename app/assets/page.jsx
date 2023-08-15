@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Fuse from "fuse.js";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import markForDisposal from "@/components/MarkForDisposal";
 
@@ -67,8 +67,11 @@ export default function ShowAssets() {
   const [assets, setAssets] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const token = JSON.parse(sessionStorage.getItem("user")).jwt;
   const loggedUser = JSON.parse(sessionStorage.getItem("user")).user;
+  const [disposed, setDisposed] = useState(false);
 
   useEffect(() => {
     const fetchAssets = async () => {
@@ -86,7 +89,7 @@ export default function ShowAssets() {
     };
 
     fetchAssets();
-  }, []);
+  }, [disposed]);
 
   // const undisposed = assets.filter(
   //   (asset) => asset.marked_for_disposal === false
@@ -101,9 +104,15 @@ export default function ShowAssets() {
   }
 
   const handleDispose = () => {
-    markForDisposal({
-      selectedIds: rowSelectionModel,
-    });
+    if(confirm("Assets with the IDs: " + rowSelectionModel + " will be marked for disposal")) {
+      markForDisposal({
+        router: router,
+        setSelected: setRowSelectionModel,
+        setDisposed: setDisposed,
+        selectedIds: rowSelectionModel,
+      });
+    }
+    setDisposed(false);
   };
   const fuse = new Fuse(assets, options);
   const disableView = rowSelectionModel.length != 1;
@@ -175,11 +184,10 @@ export default function ShowAssets() {
         >
           <Link
             href={{
-              pathname: `/assets/assign`,
-              query: rowSelectionModel,
+              href: "/assets/assign",
+              query: {rowSelectionModel},
             }}
           >
-            {" "}
             Assign
           </Link>
         </button>
