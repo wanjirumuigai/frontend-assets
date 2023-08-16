@@ -125,8 +125,8 @@ const AssignAsset = () => {
     const sentAssets = available_assets.filter(
       (asset) => sentIds.includes(asset.id)
     );
-      sentAssets.forEach(element => {
-        handleAddAsset(element);
+    sentAssets.forEach(element => {
+      handleAddAsset(element);
         
       });
   } 
@@ -136,6 +136,7 @@ const AssignAsset = () => {
     const afterDeletion = searchItems.filter((item) => item.id != id);
     setSearchItems(afterDeletion);
     setAssetsID(afterDeletion.map((item) => item.id));
+    setFormData(formData.filter(element => element.asset_id !== id));
   }
 
   function handleView(id) {
