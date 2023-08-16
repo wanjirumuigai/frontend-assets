@@ -1,6 +1,6 @@
 "use client";
 import { openSpotlight } from "@mantine/spotlight";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Table } from "@mantine/core";
 import { SpotlightProvider, spotlight } from "@mantine/spotlight";
 
@@ -14,7 +14,7 @@ import {
   IconDeviceDesktop,
 } from "@tabler/icons-react";
 import { IconEye } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDisclosure } from "@mantine/hooks";
 
 import { Modal, Button, Group } from "@mantine/core";
@@ -37,9 +37,7 @@ const AssignAsset = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("Add user");
   const loggedUser = JSON.parse(sessionStorage.getItem("user"));
-
-  // Receive id from the assets page
-  const id = router.query;
+  const searchParams = useSearchParams();
 
   const today = new Date().toISOString().split("T")[0];
   const [userId, setUserId] = useState(0);
@@ -92,31 +90,47 @@ const AssignAsset = () => {
     fetchAssets();
   }, []);
 
+  // Get the unassigned and undisposed assets only
   const issued_assets = assigns
     .filter((asset) => asset.is_returned === false)
     .map((assign) => assign.asset_id);
   const available_assets = assets.filter(
-    (asset) => !issued_assets.includes(asset.id)
+    (asset) => !issued_assets.includes(asset.id) &&
+    asset.marked_for_disposal === false
   );
 
   const [assetsId, setAssetsID] = useState([]);
 
   function handleAddAsset(asset) {
-    setSearchItems([...searchItems, asset]);
-    setAssetsID([...assetsId, asset.id]);
-    setFormData([
-      ...formData,
-      {
-        user_id: assignee.id,
-        department: assignee.department,
-        asset_id: asset.id,
-        location: location,
-        assign_date: assign_date,
-        assigned_by:
-          loggedUser.user["firstname"] + " " + loggedUser.user["lastname"],
-      },
-    ]);
+    if (!assetsId.includes(asset.id)) { // Prevent adding an asset twice
+      setSearchItems([...searchItems, asset]);
+      setAssetsID([...assetsId, asset.id]);
+      setFormData([
+        ...formData,
+        {
+          user_id: assignee.id,
+          department: assignee.department,
+          asset_id: asset.id,
+          location: location,
+          assign_date: assign_date,
+          assigned_by:
+            loggedUser.user["firstname"] + " " + loggedUser.user["lastname"],
+        },
+      ]);
+    } else {console.log("Already Picked")}
   }
+
+  const sentIds = JSON.parse(searchParams.get("assetIds"));
+  if(sentIds){
+    const sentAssets = available_assets.filter(
+      (asset) => sentIds.includes(asset.id)
+    );
+      sentAssets.forEach(element => {
+        handleAddAsset(element);
+        
+      });
+  } 
+  console.log(formData);
 
   function handleDelete(id) {
     const afterDeletion = searchItems.filter((item) => item.id != id);
@@ -134,6 +148,7 @@ const AssignAsset = () => {
     onTrigger: () => handleAddAsset(asset),
     icon: <IconDeviceDesktop size="1.2rem" />,
   }));
+
   const rows = searchItems.map((element) => (
     <tr key={element.id}>
       <td>{element.asset_name}</td>
@@ -275,7 +290,9 @@ const AssignAsset = () => {
           <div>
             <Table>
               <thead>{ths}</thead>
-              <tbody>{rows}</tbody>
+              <tbody>
+                {rows}
+                </tbody>
             </Table>
           </div>
         </div>
