@@ -120,6 +120,16 @@ const AssignAsset = () => {
     } else {console.log("Already Picked")}
   }
 
+  useEffect (() => {
+    formData.forEach(element => {
+      element.user_id = assignee.id;
+      element.department = assignee.department;
+      element.location = location;
+      element.assign_date = assign_date;
+    });
+  }, [assignee, location, assign_date]);
+
+
   const sentIds = JSON.parse(searchParams.get("assetIds"));
   if(sentIds){
     const sentAssets = available_assets.filter(
