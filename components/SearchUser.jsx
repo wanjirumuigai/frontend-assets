@@ -15,9 +15,9 @@ function SearchUser({ open, opened, close, getUser }) {
   const [users, setUsers] = useState([]);
   const fuse = new Fuse(users, options);
   const [closeModal, setCloseModal] = useState(opened);
-  const [searchCriteria, setSearchCriteria] = useState('')
-  const [searchItems, setSearchItems] = useState([])
-  const token = JSON.parse(sessionStorage.getItem("user")).jwt
+  const [searchCriteria, setSearchCriteria] = useState("");
+  const [searchItems, setSearchItems] = useState([]);
+  const token = JSON.parse(sessionStorage.getItem("user")).jwt;
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,28 +26,27 @@ function SearchUser({ open, opened, close, getUser }) {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${token}`
-        },});
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setUsers(data);
     };
 
     fetchUsers();
   }, []);
+
   function handleUserSearch(e) {
-    setSearchCriteria(e.target.value)
+    setSearchCriteria(e.target.value);
     const foundUsers = fuse
       .search(searchCriteria)
       .map((element) => element.item);
 
-   if (searchCriteria.length === 0) {
-    setSearchItems([])
-
-   } else {
-    setSearchItems(foundUsers);
-
-   }
-       
+    if (searchCriteria.length === 0) {
+      setSearchItems([]);
+    } else {
+      setSearchItems(foundUsers);
+    }
   }
   function handleChooseUser(id) {
     const returnedUser = users.filter((user) => {
@@ -69,6 +68,7 @@ function SearchUser({ open, opened, close, getUser }) {
         {searchItems.map((user) => {
           return (
             <option
+              key={user}
               onClick={() => {
                 close();
                 handleChooseUser(user.id);
