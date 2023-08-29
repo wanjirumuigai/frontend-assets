@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaComputer, FaChevronLeft, FaUserGear } from "react-icons/fa6";
 import { RiDashboard3Line, RiUserSettingsLine } from "react-icons/ri";
-import { MdMenuOpen } from "react-icons/md";
+import { MdMenu, MdMenuOpen } from "react-icons/md";
 import { TbLicense } from "react-icons/tb";
 import { NavLink } from "@mantine/core";
 import { useState, useEffect } from "react";
@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const router = useRouter();
+  const [navCollapsed, setNavCollapsed] = useState(false);
 
   useEffect(() => {
     if (window) {
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-row">
+          {!navCollapsed ?
           <div className="navbar bg-gray-900 w-1/6 h-screen overflow-hidden">
             <h1 className="text-center font-bold text-lg text-white my-5">
               <Link href="/">ICT ASSET MANAGEMENT</Link>
@@ -136,10 +138,19 @@ export default function RootLayout({ children }) {
               </NavLink>
             </div>
           </div>
+          : <div className="hidden"></div>
+          }
           <div className="main-section flex flex-col w-5/6">
             <div className="top-section">
               <div className="flex flex-row justify-between px-10 my-2.5">
-                <MdMenuOpen size={48} />
+                <button
+                onClick={() => setNavCollapsed(!navCollapsed)}
+                >
+                {navCollapsed ?
+                <MdMenu size={48}/>
+                :
+                <MdMenuOpen size={48} />}
+                </button>
                 {user ? (
                   <h1 className="font-bold text-xl self-end mx-2">
                     Welcome, {user.user["firstname"]}
